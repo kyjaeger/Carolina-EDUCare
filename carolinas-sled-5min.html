@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carolinas SLED · Funding Levers · 5-Minute View</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#060E1A; --bg-2:#0A1628; --panel:#0F2036; --panel-2:#132A45;
+    --line:rgba(255,255,255,.09); --line-2:rgba(255,255,255,.16);
+    --ink:#F3F7FB; --ink-soft:#C6D3E2; --ink-faint:#7E92AB;
+    --cyan:#00BCEB; --act:#FF6600;
+    --acc:#00BCEB; --acc-wash:rgba(0,188,235,.12); --acc-line:rgba(0,188,235,.38);
+    --ok:#2BC49B; --warn:#FF9330; --bad:#FF6B6B;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1100px 620px at 12% -8%, rgba(0,188,235,.13), transparent 62%),
+      radial-gradient(900px 520px at 92% 2%, rgba(255,102,0,.09), transparent 60%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'Hanken Grotesk',system-ui,-apple-system,sans-serif;
+    font-size:15px; line-height:1.5; -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  .wrap{max-width:1460px;margin:0 auto;padding:22px 26px 40px;}
+
+  /* ---------- header ---------- */
+  header{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:16px;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'Spline Sans Mono',monospace;font-size:10.5px;font-weight:600;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:7px;
+  }
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);}
+  h1{
+    font-family:'Bricolage Grotesque',sans-serif;font-weight:800;
+    font-size:clamp(28px,3.4vw,42px);line-height:1.02;letter-spacing:-.025em;margin:0;
+  }
+  h1 .u{background:linear-gradient(94deg,var(--cyan),#6FD8F5 52%,var(--act));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .hmeta{text-align:right;font-size:11.5px;color:var(--ink-faint);line-height:1.7;flex-shrink:0;}
+  .hmeta b{color:var(--ink-soft);font-weight:600;display:block;}
+  .lede{
+    font-size:14.5px;color:var(--ink-soft);max-width:78ch;margin:10px 0 0;
+    border-left:2px solid var(--acc-line);padding-left:13px;
+  }
+  .lede b{color:var(--ink);font-weight:600;}
+
+  /* ---------- vertical cards / selector ---------- */
+  .stage{margin-top:20px;}
+  .vcards{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;}
+
+  .vc{
+    position:relative;text-align:left;cursor:pointer;
+    background:linear-gradient(168deg,var(--panel),var(--bg-2));
+    border:1px solid var(--line);border-radius:14px;
+    padding:17px 17px 16px;color:inherit;font:inherit;
+    transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease;
+    overflow:hidden;
+  }
+  .vc::before{content:'';position:absolute;inset:0 0 auto 0;height:3px;background:var(--ac);opacity:.85;}
+  .vc:hover{transform:translateY(-3px);border-color:var(--acl);box-shadow:0 14px 34px rgba(0,0,0,.42);}
+  .vc:focus-visible{outline:2px solid var(--ac);outline-offset:3px;}
+  .vc .vn{
+    font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px;
+    letter-spacing:-.015em;display:block;margin-bottom:2px;
+  }
+  .vc .vmode{
+    font-family:'Spline Sans Mono',monospace;font-size:9.5px;font-weight:600;
+    letter-spacing:.11em;text-transform:uppercase;color:var(--ac);display:block;margin-bottom:11px;
+  }
+  .vc .vmoney{
+    font-family:'Bricolage Grotesque',sans-serif;font-weight:800;
+    font-size:clamp(24px,2.6vw,33px);line-height:1;letter-spacing:-.03em;
+    color:var(--ink);display:block;
+  }
+  .vc .vmsub{display:block;font-size:11.5px;color:var(--ink-faint);margin-top:6px;line-height:1.45;min-height:33px;}
+  .vc .vlevs{display:flex;flex-wrap:wrap;gap:4px;margin-top:12px;padding-top:11px;border-top:1px solid var(--line);}
+  .vc .vlev{
+    font-family:'Spline Sans Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.05em;
+    background:var(--acw);border:1px solid var(--acl);color:var(--ac);
+    padding:2.5px 6px;border-radius:4px;white-space:nowrap;
+  }
+  .vc .vgo{
+    display:flex;align-items:center;gap:6px;margin-top:12px;
+    font-size:11px;font-weight:600;color:var(--ink-faint);
+  }
+  .vc:hover .vgo{color:var(--ac);}
+
+  /* compact mode once a vertical is open */
+  .stage[data-mode="v"] .vcards{grid-template-columns:repeat(4,1fr);gap:9px;}
+  .stage[data-mode="v"] .vc{padding:10px 13px;border-radius:10px;}
+  .stage[data-mode="v"] .vc .vmsub,
+  .stage[data-mode="v"] .vc .vlevs,
+  .stage[data-mode="v"] .vc .vgo{display:none;}
+  .stage[data-mode="v"] .vc .vn{font-size:14px;margin-bottom:1px;}
+  .stage[data-mode="v"] .vc .vmode{margin-bottom:0;font-size:9px;}
+  .stage[data-mode="v"] .vc .vmoney{
+    position:absolute;right:13px;top:50%;transform:translateY(-50%);
+    font-size:17px;color:var(--ac);
+  }
+  .stage[data-mode="v"] .vc:hover{transform:none;}
+  .stage[data-mode="v"] .vc.on{
+    background:linear-gradient(168deg,var(--acw),var(--panel));
+    border-color:var(--acl);
+  }
+  .stage[data-mode="v"] .vc.on::before{height:3px;opacity:1;}
+  .stage[data-mode="v"] .vc:not(.on){opacity:.52;}
+  .stage[data-mode="v"] .vc:not(.on):hover{opacity:1;}
+
+  /* ---------- the drill-down body ---------- */
+  .vbody{display:none;margin-top:16px;}
+  .vbody.on{display:block;}
+  .stage[data-mode="home"] .vbody{display:none;}
+
+  .vtop{
+    display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;
+    padding:11px 15px;margin-bottom:11px;
+    background:linear-gradient(100deg,var(--acw),rgba(255,255,255,.02));
+    border:1px solid var(--acl);border-left-width:3px;border-radius:11px;
+  }
+  .vtop .vplay{margin:0;font-size:14px;color:var(--ink);max-width:88ch;}
+  .vtop .vplay b{color:var(--acc);font-weight:600;}
+  .back{
+    flex-shrink:0;cursor:pointer;font:inherit;font-size:11px;font-weight:600;
+    background:transparent;border:1px solid var(--line-2);color:var(--ink-faint);
+    padding:5px 11px;border-radius:7px;transition:.15s;
+  }
+  .back:hover{color:var(--ink);border-color:var(--acc-line);}
+
+  .clockstrip{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:11px;}
+  .ck{
+    font-size:11px;color:var(--ink-soft);
+    background:rgba(255,102,0,.09);border:1px solid rgba(255,102,0,.3);
+    padding:4px 9px;border-radius:6px;
+  }
+  .ck b{font-family:'Spline Sans Mono',monospace;font-size:10px;color:var(--act);font-weight:600;letter-spacing:.03em;}
+  .ck.cool{background:rgba(255,255,255,.03);border-color:var(--line);}
+  .ck.cool b{color:var(--ink-faint);}
+
+  .cols{display:grid;grid-template-columns:1fr 1fr 1.22fr;gap:14px;align-items:start;}
+
+  .grp{margin-bottom:11px;}
+  .grp:last-child{margin-bottom:0;}
+  .gh{
+    display:flex;align-items:baseline;gap:8px;margin-bottom:7px;
+    font-family:'Spline Sans Mono',monospace;font-size:10px;font-weight:600;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);
+  }
+  .gh .gn{color:var(--acc);}
+  .gh.risk .gn{color:var(--bad);}
+  .gh.opp .gn{color:var(--ok);}
+
+  .it{
+    display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:9px;
+    width:100%;text-align:left;cursor:pointer;font:inherit;
+    background:var(--panel);border:1px solid var(--line);border-radius:9px;
+    padding:6px 10px;margin-bottom:4px;color:var(--ink-soft);
+    transition:border-color .14s ease,background .14s ease,transform .14s ease;
+  }
+  .it:hover,.it.sel{background:var(--panel-2);border-color:var(--acc-line);color:var(--ink);transform:translateX(2px);}
+  .it.sel{box-shadow:inset 3px 0 0 var(--acc);}
+  .it:focus-visible{outline:2px solid var(--acc);outline-offset:2px;}
+  .it .ic{
+    font-family:'Spline Sans Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.04em;
+    background:var(--acc-wash);border:1px solid var(--acc-line);color:var(--acc);
+    padding:2.5px 6px;border-radius:4px;white-space:nowrap;
+  }
+  .it .in{font-size:13px;font-weight:500;line-height:1.3;}
+  .it .iz{
+    font-family:'Spline Sans Mono',monospace;font-size:10px;color:var(--ink-faint);
+    white-space:nowrap;text-align:right;
+  }
+  .it.big .iz{color:var(--cyan);}
+  .it.dead{opacity:.55;}
+  .it.dead .ic{background:rgba(255,255,255,.05);border-color:var(--line-2);color:var(--ink-faint);}
+  .it.rk .ic{background:rgba(255,107,107,.12);border-color:rgba(255,107,107,.34);color:var(--bad);}
+  .it.rk:hover,.it.rk.sel{border-color:rgba(255,107,107,.45);}
+  .it.rk.sel{box-shadow:inset 3px 0 0 var(--bad);}
+  .it.anchor{background:linear-gradient(100deg,var(--acc-wash),var(--panel));border-color:var(--acc-line);}
+  .it.anchor .in{font-weight:600;color:var(--ink);}
+  .it.anchor .iz{color:var(--acc);}
+  .it.op .ic{background:rgba(43,196,155,.12);border-color:rgba(43,196,155,.34);color:var(--ok);}
+  .it.op:hover,.it.op.sel{border-color:rgba(43,196,155,.45);}
+  .it.op.sel{box-shadow:inset 3px 0 0 var(--ok);}
+
+  /* ---------- detail pane ---------- */
+  .pane{
+    position:sticky;top:16px;
+    background:linear-gradient(168deg,var(--panel),var(--bg-2));
+    border:1px solid var(--line-2);border-radius:13px;
+    padding:17px 19px;min-height:330px;
+    max-height:calc(100vh - 40px);overflow:auto;
+  }
+  .pane::-webkit-scrollbar{width:7px;}
+  .pane::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:4px;}
+  .pane .empty{
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    min-height:296px;text-align:center;color:var(--ink-faint);gap:9px;
+  }
+  .pane .empty .big{
+    font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:16px;color:var(--ink-soft);
+  }
+  .pane .empty p{margin:0;font-size:12.5px;max-width:34ch;line-height:1.55;}
+  .kbd{
+    font-family:'Spline Sans Mono',monospace;font-size:10px;
+    border:1px solid var(--line-2);border-radius:4px;padding:2px 6px;color:var(--ink-soft);
+  }
+
+  .dh{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:4px;}
+  .dc{
+    font-family:'Spline Sans Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.06em;
+    background:var(--acc-wash);border:1px solid var(--acc-line);color:var(--acc);
+    padding:3px 7px;border-radius:4px;
+  }
+  .dc.r{background:rgba(255,107,107,.12);border-color:rgba(255,107,107,.34);color:var(--bad);}
+  .dc.o{background:rgba(43,196,155,.12);border-color:rgba(43,196,155,.34);color:var(--ok);}
+  .pane h5{
+    font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:18px;
+    letter-spacing:-.018em;margin:0;line-height:1.2;
+  }
+  .dmeta{
+    font-family:'Spline Sans Mono',monospace;font-size:10.5px;color:var(--ink-faint);
+    margin:6px 0 13px;padding-bottom:11px;border-bottom:1px solid var(--line);
+  }
+  .pane dl{margin:0;}
+  .pane dt{
+    font-family:'Spline Sans Mono',monospace;font-size:9.5px;font-weight:600;
+    letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint);
+    margin-top:12px;margin-bottom:4px;
+  }
+  .pane dt:first-child{margin-top:0;}
+  .pane dd{margin:0;font-size:13px;line-height:1.55;color:var(--ink-soft);}
+  .pane dd b{color:var(--ink);font-weight:600;}
+  .pane dd.no{color:#F3B9B9;}
+  .pane dd.no b{color:#FFD4D4;}
+  .pane dd.ci{color:#BCE7F5;}
+  .pane dd.ci b{color:#E4F6FD;}
+  .pane .prose{font-size:13px;line-height:1.6;color:var(--ink-soft);margin:0 0 10px;}
+  .pane .prose:last-child{margin-bottom:0;}
+  .pane .prose b{color:var(--ink);font-weight:600;}
+  .pane .prose em{color:var(--ink-faint);font-style:italic;}
+  .hl{color:var(--acc);font-weight:600;}
+  .hlw{color:var(--warn);font-weight:600;}
+  .hlb{color:var(--bad);font-weight:600;}
+  .hlg{color:var(--ok);font-weight:600;}
+
+  #store{display:none;}
+
+  footer{
+    margin-top:26px;padding-top:15px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+    font-size:11.5px;color:var(--ink-faint);line-height:1.6;
+  }
+  footer a{color:var(--cyan);text-decoration:none;border-bottom:1px solid rgba(0,188,235,.35);}
+  footer a:hover{border-bottom-color:var(--cyan);}
+  footer .fnote{max-width:62ch;}
+
+  @media (max-width:1180px){
+    .cols{grid-template-columns:1fr 1fr;}
+    .pane{grid-column:1 / -1;position:static;max-height:none;}
+  }
+  @media (max-width:820px){
+    .vcards,.stage[data-mode="v"] .vcards{grid-template-columns:repeat(2,1fr);}
+    .cols{grid-template-columns:1fr;}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none !important;}}
+  @media print{
+    body{background:#fff;color:#111;}
+    .vbody{display:block !important;}
+    .pane{position:static;max-height:none;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <div class="eyebrow"><span class="dot"></span>Cisco SLED &middot; Carolinas &middot; Healthcare &amp; Education</div>
+      <h1>Where the <span class="u">Money</span> Comes From</h1>
+    </div>
+    <div class="hmeta">
+      <b>Area Sales Director &mdash; Shawn Gavin</b>
+      <b>Area SE Director &mdash; Vinaya Springer</b>
+      September 2026 &middot; 5-minute view
+    </div>
+  </header>
+
+  <p class="lede">Four verticals in North and South Carolina. <b>Each one pays for Cisco a completely different way</b> &mdash; competitive grants, federal formula money, a standing federal subsidy, and operating margin. Treating them as one motion is what costs us deals. Pick a vertical to go a level deeper; click any lever, opportunity or risk for the detail behind it.</p>
+
+  <div class="stage" id="stage" data-mode="home">
+
+    <!-- ============ LEVEL 1 · THE FOUR VERTICALS ============ -->
+    <div class="vcards" id="vcards">
+
+      <button class="vc" data-v="uni" style="--ac:#00BCEB;--acw:rgba(0,188,235,.12);--acl:rgba(0,188,235,.38);">
+        <span class="vn">Universities</span>
+        <span class="vmode">Grant-led &middot; 7 campuses</span>
+        <span class="vmoney">$500M+</span>
+        <span class="vmsub">of named, funded programs. Competitively won, not formula &mdash; we win by being written into a proposal 18 months early.</span>
+        <span class="vlevs"><span class="vlev">NSF CC*/MRI</span><span class="vlev">DoD/CHIPS</span><span class="vlev">State capital</span><span class="vlev">IT refresh</span><span class="vlev">Ecosystem</span></span>
+        <span class="vgo">5 levers &middot; 3 plays &middot; 3 risks &nbsp;&rarr;</span>
+      </button>
+
+      <button class="vc" data-v="cc" style="--ac:#2BC49B;--acw:rgba(43,196,155,.12);--acl:rgba(43,196,155,.38);">
+        <span class="vn">Community Colleges</span>
+        <span class="vmode">Formula-led &middot; 74 colleges</span>
+        <span class="vmoney">$75.0M</span>
+        <span class="vmsub">SC state equipment ask that names IT explicitly, on top of Perkins formula money every college qualifies for today.</span>
+        <span class="vlevs"><span class="vlev">Perkins V</span><span class="vlev">NSF ATE</span><span class="vlev">NSF CC*</span><span class="vlev">SBTCE</span><span class="vlev">readySC</span><span class="vlev">Bonds</span></span>
+        <span class="vgo">6 levers &middot; 3 plays &middot; 4 risks &nbsp;&rarr;</span>
+      </button>
+
+      <button class="vc" data-v="k12" style="--ac:#FF9330;--acw:rgba(255,147,48,.13);--acl:rgba(255,147,48,.40);">
+        <span class="vn">K&#8209;12</span>
+        <span class="vmode">Subsidy-led &middot; 12 target districts</span>
+        <span class="vmoney">~$155M</span>
+        <span class="vmsub">of E&#8209;Rate Category&nbsp;Two budget sitting in our target districts through FY2030. Non-rolling &mdash; use it or lose it.</span>
+        <span class="vlevs"><span class="vlev">E-Rate C2</span><span class="vlev">Cyber Pilot</span><span class="vlev">NC SCI</span><span class="vlev">Capital</span><span class="vlev">Penny tax</span><span class="vlev">Safety</span></span>
+        <span class="vgo">7 levers &middot; 3 plays &middot; 4 risks &nbsp;&rarr;</span>
+      </button>
+
+      <button class="vc" data-v="hc" style="--ac:#9B8AFA;--acw:rgba(155,138,250,.13);--acl:rgba(155,138,250,.40);">
+        <span class="vn">Healthcare</span>
+        <span class="vmode">Margin &amp; construction-led</span>
+        <span class="vmoney">$413M</span>
+        <span class="vmsub">Rural Health Transformation year one &mdash; NC $213.0M, SC $200.0M &mdash; inside a ~$2B five-year run.</span>
+        <span class="vlevs"><span class="vlev">RHTP</span><span class="vlev">HIPAA</span><span class="vlev">SC CON</span><span class="vlev">HASP</span><span class="vlev">FCC RHC</span><span class="vlev">Hosp@home</span></span>
+        <span class="vgo">7 levers &middot; 3 plays &middot; 4 risks &nbsp;&rarr;</span>
+      </button>
+
+    </div>
+
+    <!-- ============ LEVEL 2 · UNIVERSITIES ============ -->
+    <div class="vbody" id="b-uni" data-v="uni" style="--acc:#00BCEB;--acc-wash:rgba(0,188,235,.12);--acc-line:rgba(0,188,235,.38);">
+      <div class="vtop">
+        <p class="vplay">Money follows the <b>science driver</b>. The AI/HPC fabric is the one place where grant dollars, greenfield construction and our strongest silicon story land in the same room &mdash; and it is also where Arista and NVIDIA are strongest, so we earn it on merit.</p>
+        <button class="back">&larr; All four</button>
+      </div>
+      <div class="clockstrip">
+        <span class="ck"><b>Oct 19</b> &nbsp;SC statewide Cisco contract expires &mdash; successor award unconfirmed</span>
+        <span class="ck cool"><b>Jun 30 2027</b> &nbsp;NC DIT 204X expires</span>
+        <span class="ck cool"><b>Annual</b> &nbsp;NSF CC* / MRI cycle &mdash; verify dates on nsf.gov</span>
+      </div>
+      <div class="cols">
+        <div>
+          <div class="grp">
+            <div class="gh"><span class="gn">Funding levers</span> &mdash; what pays</div>
+            <button class="it big" data-k="uni-l1"><span class="ic">RCI</span><span class="in">NSF CC* &amp; MRI</span><span class="iz">$0.5&ndash;4M ea.</span></button>
+            <button class="it big" data-k="uni-l2"><span class="ic">RCI</span><span class="in">NIH &middot; DoD/CHIPS &middot; philanthropy</span><span class="iz">$39&ndash;160M</span></button>
+            <button class="it big" data-k="uni-l3"><span class="ic">CAP</span><span class="in">State capital &amp; bonds</span><span class="iz">$45&ndash;180M</span></button>
+            <button class="it" data-k="uni-l4"><span class="ic">SEC</span><span class="in">IT modernization &amp; security</span><span class="iz">OpEx</span></button>
+            <button class="it" data-k="uni-l5"><span class="ic">ECO</span><span class="in">Academic health, OT, workforce</span><span class="iz">Separate</span></button>
+          </div>
+        </div>
+        <div>
+          <div class="grp">
+            <div class="gh opp"><span class="gn">Opportunities</span> &mdash; how we win</div>
+            <button class="it op" data-k="uni-o1"><span class="ic">01</span><span class="in">Get written into the proposal</span><span class="iz"></span></button>
+            <button class="it op" data-k="uni-o2"><span class="ic">02</span><span class="in">Win the fabric on their terms</span><span class="iz"></span></button>
+            <button class="it op" data-k="uni-o3"><span class="ic">03</span><span class="in">Time security to the leader</span><span class="iz"></span></button>
+          </div>
+          <div class="grp">
+            <div class="gh risk"><span class="gn">Risks</span> &mdash; what kills it</div>
+            <button class="it rk" data-k="uni-r1"><span class="ic">!</span><span class="in">Grant timing is not our timing</span><span class="iz"></span></button>
+            <button class="it rk" data-k="uni-r2"><span class="ic">!</span><span class="in">Open-source credibility</span><span class="iz"></span></button>
+            <button class="it rk" data-k="uni-r3"><span class="ic">!</span><span class="in">Unconfirmed incumbents</span><span class="iz"></span></button>
+          </div>
+        </div>
+        <div class="pane" data-pane="uni"></div>
+      </div>
+    </div>
+
+    <!-- ============ LEVEL 2 · COMMUNITY COLLEGES ============ -->
+    <div class="vbody" id="b-cc" data-v="cc" style="--acc:#2BC49B;--acc-wash:rgba(43,196,155,.12);--acc-line:rgba(43,196,155,.38);">
+      <div class="vtop">
+        <p class="vplay">Formula money is <b>reliable and small</b>; the state capital channel is where the size is. Perkins is available at every college every year and its industry-standard equipment test does our sole-source work &mdash; but it will not pay for cabling, and deal size only works if we sell to consortia.</p>
+        <button class="back">&larr; All four</button>
+      </div>
+      <div class="clockstrip">
+        <span class="ck"><b>Nov 3</b> &nbsp;~$149M Wake Tech GO bond on the ballot</span>
+        <span class="ck cool"><b>Spring 2027</b> &nbsp;COPS School Violence NOFO expected</span>
+        <span class="ck cool"><b>Jun 30 2027</b> &nbsp;NC DIT 204X expires</span>
+      </div>
+      <div class="cols">
+        <div>
+          <div class="grp">
+            <div class="gh"><span class="gn">Funding levers</span> &mdash; what pays</div>
+            <button class="it" data-k="cc-l1"><span class="ic">PERKINS</span><span class="in">Perkins V formula funds</span><span class="iz">Every college</span></button>
+            <button class="it" data-k="cc-l2"><span class="ic">ATE</span><span class="in">NSF Advanced Tech Education</span><span class="iz">Competitive</span></button>
+            <button class="it" data-k="cc-l3"><span class="ic">CC*</span><span class="in">NSF Campus Cyberinfrastructure</span><span class="iz">$0.5&ndash;1M</span></button>
+            <button class="it big" data-k="cc-l4"><span class="ic">SBTCE</span><span class="in">SC State Board equipment ask</span><span class="iz">$75.0M</span></button>
+            <button class="it" data-k="cc-l5"><span class="ic">READYSC</span><span class="in">readySC / Apprenticeship Carolina</span><span class="iz">SC only</span></button>
+            <button class="it big" data-k="cc-l6"><span class="ic">CAP</span><span class="in">NC county bonds &amp; CTE centers</span><span class="iz">$149M live</span></button>
+          </div>
+        </div>
+        <div>
+          <div class="grp">
+            <div class="gh opp"><span class="gn">Opportunities</span> &mdash; how we win</div>
+            <button class="it op" data-k="cc-o1"><span class="ic">01</span><span class="in">Lead with Perkins everywhere</span><span class="iz"></span></button>
+            <button class="it op" data-k="cc-o2"><span class="ic">02</span><span class="in">Sell to the consortium, not the campus</span><span class="iz"></span></button>
+            <button class="it op" data-k="cc-o3"><span class="ic">03</span><span class="in">Treat designations as triggers</span><span class="iz"></span></button>
+          </div>
+          <div class="grp">
+            <div class="gh risk"><span class="gn">Risks</span> &mdash; what kills it</div>
+            <button class="it rk" data-k="cc-r1"><span class="ic">!</span><span class="in">Perkins cannot pay for cabling</span><span class="iz"></span></button>
+            <button class="it rk" data-k="cc-r2"><span class="ic">!</span><span class="in">Uniform Guidance procurement</span><span class="iz"></span></button>
+            <button class="it rk" data-k="cc-r3"><span class="ic">!</span><span class="in">Price-reasonableness paperwork</span><span class="iz"></span></button>
+            <button class="it rk" data-k="cc-r4"><span class="ic">!</span><span class="in">CAE designations expire</span><span class="iz"></span></button>
+          </div>
+        </div>
+        <div class="pane" data-pane="cc"></div>
+      </div>
+    </div>
+
+    <!-- ============ LEVEL 2 · K-12 ============ -->
+    <div class="vbody" id="b-k12" data-v="k12" style="--acc:#FF9330;--acc-wash:rgba(255,147,48,.13);--acc-line:rgba(255,147,48,.40);">
+      <div class="vtop">
+        <p class="vplay">The only vertical with a <b>standing federal subsidy for the exact equipment we sell</b>. E&#8209;Rate Category&nbsp;Two pays 80&ndash;85%, and in North Carolina the state covers the rest &mdash; a LAN refresh costs the district close to nothing. Two price-aggressive competitors just lost their NC contract position.</p>
+        <button class="back">&larr; All four</button>
+      </div>
+      <div class="clockstrip">
+        <span class="ck"><b>Oct 20</b> &nbsp;Pickens County SC Meraki bid due</span>
+        <span class="ck"><b>Nov 3</b> &nbsp;Five referenda &mdash; incl. Charleston ~$91M IT earmark</span>
+        <span class="ck"><b>Nov 12</b> &nbsp;FCC E&#8209;Rate review reply comments</span>
+        <span class="ck cool"><b>Jan&ndash;Mar 2027</b> &nbsp;FY2027 Form 471 window</span>
+      </div>
+      <div class="cols">
+        <div>
+          <div class="grp">
+            <div class="gh"><span class="gn">Funding levers</span> &mdash; what pays</div>
+            <button class="it big" data-k="k12-l1"><span class="ic">E-RATE</span><span class="in">Category Two internal connections</span><span class="iz">$201.57/stu</span></button>
+            <button class="it" data-k="k12-l2"><span class="ic">PILOT</span><span class="in">FCC Cybersecurity Pilot</span><span class="iz">$200M &middot; closed</span></button>
+            <button class="it" data-k="k12-l3"><span class="ic">NC SCI</span><span class="in">NC School Connectivity Initiative</span><span class="iz">$12.7M</span></button>
+            <button class="it big" data-k="k12-l4"><span class="ic">NC CAP</span><span class="in">Lottery capital &amp; county bonds</span><span class="iz">$4.5B in flight</span></button>
+            <button class="it big" data-k="k12-l5"><span class="ic">SC CAP</span><span class="in">SC penny tax &amp; bonds</span><span class="iz">$91M IT</span></button>
+            <button class="it" data-k="k12-l6"><span class="ic">SAFETY</span><span class="in">School safety &amp; physical security</span><span class="iz">$20M + $33M</span></button>
+            <button class="it dead" data-k="k12-l7"><span class="ic">DEAD</span><span class="in">ESSER &middot; bus Wi-Fi &middot; hotspots</span><span class="iz">Closed</span></button>
+          </div>
+        </div>
+        <div>
+          <div class="grp">
+            <div class="gh opp"><span class="gn">Opportunities</span> &mdash; how we win</div>
+            <button class="it op" data-k="k12-o1"><span class="ic">01</span><span class="in">Open with a C2 utilization review</span><span class="iz"></span></button>
+            <button class="it op" data-k="k12-o2"><span class="ic">02</span><span class="in">Work the contract, not the list price</span><span class="iz"></span></button>
+            <button class="it op" data-k="k12-o3"><span class="ic">03</span><span class="in">Fix the partner math in NC</span><span class="iz"></span></button>
+          </div>
+          <div class="grp">
+            <div class="gh risk"><span class="gn">Risks</span> &mdash; what kills it</div>
+            <button class="it rk" data-k="k12-r1"><span class="ic">!</span><span class="in">The FCC is reviewing Category Two</span><span class="iz"></span></button>
+            <button class="it rk" data-k="k12-r2"><span class="ic">!</span><span class="in">SC "compatible solutions" lots</span><span class="iz"></span></button>
+            <button class="it rk" data-k="k12-r3"><span class="ic">!</span><span class="in">Competing against free in NC</span><span class="iz"></span></button>
+            <button class="it rk" data-k="k12-r4"><span class="ic">!</span><span class="in">Our own end-of-life SKUs</span><span class="iz"></span></button>
+          </div>
+        </div>
+        <div class="pane" data-pane="k12"></div>
+      </div>
+    </div>
+
+    <!-- ============ LEVEL 2 · HEALTHCARE ============ -->
+    <div class="vbody" id="b-hc" data-v="hc" style="--acc:#9B8AFA;--acc-wash:rgba(155,138,250,.13);--acc-line:rgba(155,138,250,.40);">
+      <div class="vtop">
+        <p class="vplay">Almost no grant money for infrastructure &mdash; and a <b>$50B exception that just landed</b>. Healthcare pays from operating margin and construction budgets on a 75% OpEx / 25% CapEx split, so capital-heavy proposals lose on structure regardless of TCO. Our two anchors, <b>Duke Health and UNC Health</b>, are near-identical in size and <b>buy in completely different ways</b> &mdash; that difference is the first thing to get right. <b>FY2027 is a better year to close large healthcare capital here than FY2029.</b></p>
+        <button class="back">&larr; All four</button>
+      </div>
+      <div class="clockstrip">
+        <span class="ck"><b>Oct 15</b> &nbsp;UNC Health Rex 233-bed CON hearing</span>
+        <span class="ck"><b>Oct 26</b> &nbsp;NC Rural Health Transformation Summit</span>
+        <span class="ck"><b>Oct 31</b> &nbsp;CMS FY2027 RHTP state awards</span>
+        <span class="ck"><b>Q4</b> &nbsp;UNC Health Wilmington $852.7M CON decision</span>
+        <span class="ck cool"><b>Jan 1 2027</b> &nbsp;SC CON sunsets &middot; 340B pilot begins</span>
+      </div>
+      <div class="cols">
+        <div>
+          <div class="grp">
+            <div class="gh"><span class="gn">Funding levers</span> &mdash; what pays</div>
+            <button class="it big" data-k="hc-l1"><span class="ic">RHTP</span><span class="in">Rural Health Transformation</span><span class="iz">$413M yr 1</span></button>
+            <button class="it" data-k="hc-l2"><span class="ic">HIPAA</span><span class="in">Proposed Security Rule overhaul</span><span class="iz">Obligation</span></button>
+            <button class="it big" data-k="hc-l3"><span class="ic">SC CON</span><span class="in">Certificate of Need sunset</span><span class="iz">$4B+</span></button>
+            <button class="it big" data-k="hc-l4"><span class="ic">HASP</span><span class="in">NC directed payments &amp; margin</span><span class="iz">~$3.4B/yr</span></button>
+            <button class="it" data-k="hc-l5"><span class="ic">FCC RHC</span><span class="in">Rural Health Care / HCF</span><span class="iz">65% flat</span></button>
+            <button class="it" data-k="hc-l6"><span class="ic">AHCAH</span><span class="in">Hospital-at-home &amp; telehealth</span><span class="iz">To 2030</span></button>
+            <button class="it dead" data-k="hc-l7"><span class="ic">SMALL</span><span class="in">USDA DLT &middot; HRSA SHIP</span><span class="iz">Tactical</span></button>
+          </div>
+        </div>
+        <div>
+          <div class="grp">
+            <div class="gh"><span class="gn">Anchor accounts</span> &mdash; our two biggest</div>
+            <button class="it anchor" data-k="hc-a1"><span class="ic">#1</span><span class="in">Duke Health</span><span class="iz">$7.29B &middot; 4 hosp</span></button>
+            <button class="it anchor" data-k="hc-a2"><span class="ic">#2</span><span class="in">UNC Health</span><span class="iz">$7.40B &middot; ~16 hosp</span></button>
+            <button class="it" data-k="hc-a3"><span class="ic">REST</span><span class="in">Atrium &middot; Prisma &middot; MUSC &middot; Novant &middot; Roper &middot; ECU</span><span class="iz">6 systems</span></button>
+          </div>
+          <div class="grp">
+            <div class="gh opp"><span class="gn">Opportunities</span> &mdash; how we win</div>
+            <button class="it op" data-k="hc-o1"><span class="ic">01</span><span class="in">Lead with consolidation, not capability</span><span class="iz"></span></button>
+            <button class="it op" data-k="hc-o2"><span class="ic">02</span><span class="in">Structure it as OpEx or lose on structure</span><span class="iz"></span></button>
+            <button class="it op" data-k="hc-o3"><span class="ic">03</span><span class="in">Win the enforcement plane</span><span class="iz"></span></button>
+          </div>
+          <div class="grp">
+            <div class="gh risk"><span class="gn">Risks</span> &mdash; what kills it</div>
+            <button class="it rk" data-k="hc-r1"><span class="ic">!</span><span class="in">Claiming mandates that don't exist</span><span class="iz"></span></button>
+            <button class="it rk" data-k="hc-r2"><span class="ic">!</span><span class="in">340B and HASP squeeze in FY2027</span><span class="iz"></span></button>
+            <button class="it rk" data-k="hc-r3"><span class="ic">!</span><span class="in">We don't know where we stand</span><span class="iz"></span></button>
+            <button class="it rk" data-k="hc-r4"><span class="ic">!</span><span class="in">Every AI conversation needs a number</span><span class="iz"></span></button>
+          </div>
+        </div>
+        <div class="pane" data-pane="hc"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="fnote">This is the 5-minute view. The full analysis &mdash; 30 named accounts, lever&rarr;portfolio maps, contract vehicles, the complete dated calendar and the credibility guardrails &mdash; is in <a href="carolinas-sled-funding-levers.html">the comprehensive briefing</a>.</div>
+    <div class="fnote">The $500M+ university and ~$155M K&#8209;12 figures are sums of published amounts computed for this document, not published totals. SC statewide Cisco contract status is unverified as of Sep 30, 2026.</div>
+  </footer>
+
+</div>
+
+<!-- ======================= DETAIL STORE ======================= -->
+<div id="store">
+
+  <!-- ---------- UNIVERSITIES ---------- -->
+  <div data-k="uni-l1">
+    <div class="dh"><span class="dc">RCI</span><h5>NSF Campus Cyberinfrastructure (CC*) &amp; MRI</h5></div>
+    <div class="dmeta">$0.5&ndash;4M each &middot; competitive &middot; annual solicitation</div>
+    <dl>
+      <dt>Funds</dt><dd>Production campus networking, Science DMZ, data-transfer nodes, GPU-as-a-service clusters and research interconnect. <b>This is the only federal education lever that pays for real production network and security gear.</b></dd>
+      <dt>Won't fund</dt><dd class="no">Anything without a credible research <b>"science driver."</b> Enterprise IT, administrative networks and teaching labs do not qualify.</dd>
+      <dt>Cisco</dt><dd class="ci"><b>Nexus 9000 / Silicon One, Nexus Hyperfabric AI, UCS and AI PODs, ThousandEyes</b> across the Science DMZ. Speak RoCEv2, not "AI-ready" &mdash; these buyers are researchers.</dd>
+    </dl>
+  </div>
+
+  <div data-k="uni-l2">
+    <div class="dh"><span class="dc">RCI</span><h5>NIH &middot; DoD / CHIPS &middot; DOE &middot; philanthropy</h5></div>
+    <div class="dmeta">$39M&ndash;$160M &middot; live in territory today</div>
+    <dl>
+      <dt>Funds</dt><dd>Mission-specific compute and secure enclaves. In territory right now: NC State leads the DoD <b>CLAWS</b> microelectronics hub at $39.4M; UNC Charlotte leads an NSF Regional Innovation Engine worth <b>up to $160M over ten years</b>; Duke's ~$40M GPU data center is grant- and philanthropy-funded.</dd>
+      <dt>Won't fund</dt><dd class="no">A campus-wide refresh. Scope stays strictly inside the funded program's boundary.</dd>
+      <dt>Cisco</dt><dd class="ci">Secure OT/IoT for the semiconductor and grid partners, <b>Cyber Vision</b> (included with IE3500/IE9300 plus Network Advantage), and <b>ThousandEyes</b> across multi-partner ecosystems where no one owns the whole path.</dd>
+    </dl>
+  </div>
+
+  <div data-k="uni-l3">
+    <div class="dh"><span class="dc">CAP</span><h5>State capital, bonds &amp; lifecycle funding models</h5></div>
+    <div class="dmeta">$45M&ndash;$180M per project &middot; multi-year</div>
+    <dl>
+      <dt>Funds</dt><dd>New construction and renovation &mdash; the cleanest greenfield network, wireless, AV and room scope we get. NC State's $180M Integrative Sciences Building sits inside a $1B+ program; Clemson's NextGen Computing Complex runs ~$100&ndash;177M; Winston-Salem State has ~$40M of state-funded renovation.</dd>
+      <dt>Won't fund</dt><dd class="no">Subscriptions or multi-year software, typically. <b>Capital money wants assets.</b></dd>
+      <dt>Cisco</dt><dd class="ci"><b>Catalyst 9000 / C9000 Smart Switches, Cisco Wireless CW917x (Wi&#8209;Fi 7), Webex Devices.</b> The whole game is getting into the design phase rather than the bid phase.</dd>
+    </dl>
+  </div>
+
+  <div data-k="uni-l4">
+    <div class="dh"><span class="dc">SEC</span><h5>Enterprise IT modernization &amp; security refresh</h5></div>
+    <div class="dmeta">Recurring operating budget &middot; leader-triggered</div>
+    <dl>
+      <dt>Funds</dt><dd>The bread-and-butter lane &mdash; SIEM, SASE/ZTNA, identity, NAC, observability and telephony. Funded from recurring IT budget, so it is the most predictable of the five, and it is where incumbency is either defended or lost.</dd>
+      <dt>Won't fund</dt><dd class="no">Anything without a trigger. <b>New CIOs and CISOs reset the stack</b> &mdash; that is the buying window, not the fiscal year.</dd>
+      <dt>Cisco</dt><dd class="ci"><b>Splunk ES + SOAR, Cisco XDR, Secure Access (not Umbrella), Duo, ISE, ThousandEyes, Meraki, Webex Calling.</b> Cisco telemetry lands in Splunk at a built-in 50% weighted ingest rate, which changes the economics of the SIEM conversation.</dd>
+    </dl>
+  </div>
+
+  <div data-k="uni-l5">
+    <div class="dh"><span class="dc">ECO</span><h5>Ecosystem: academic health, OT, workforce</h5></div>
+    <div class="dmeta">Adjacent buying centers with their own budgets</div>
+    <dl>
+      <dt>Funds</dt><dd>Buying centers that sit next to the university and carry separate money &mdash; academic health systems (IoMT security), smart-campus and OT, industry partnerships, and Networking Academy talent pipelines.</dd>
+      <dt>Won't fund</dt><dd class="no">Anything reachable through the university CIO. <b>Duke Health and UNC Health are separate buying centers from their universities.</b> MUSC is the exception &mdash; one enterprise CIO covers both.</dd>
+      <dt>Cisco</dt><dd class="ci"><b>Medical NAC + ISE</b> layered on existing discovery tooling, and <b>Networking Academy</b> as the relationship lever. Stanly Community College is a NetAcad <b>Premier+</b> partner &mdash; top 5% globally, and it is in our territory.</dd>
+    </dl>
+  </div>
+
+  <div data-k="uni-o1">
+    <div class="dh"><span class="dc o">Play 01</span><h5>Get written into the proposal</h5></div>
+    <div class="dmeta">Highest-leverage habit change available to this team</div>
+    <p class="prose">Grant money is committed <b>12&ndash;18 months before it is spent</b>. By the time a PO appears the architecture was decided long ago, and it was decided by whoever helped the PI write the technical narrative.</p>
+    <p class="prose">The <span class="hl">Cisco Public Funding Office</span> (grantquestions@cisco.com) will supply grant verbiage for Cisco technology and review a draft proposal, with an advisor assigned per state. We are not using it. That is the single cheapest change on this list.</p>
+  </div>
+
+  <div data-k="uni-o2">
+    <div class="dh"><span class="dc o">Play 02</span><h5>Win the fabric on their terms</h5></div>
+    <div class="dmeta">Where grant dollars and greenfield overlap</div>
+    <p class="prose">Duke is actively shopping merchant silicon and SONiC to escape lock-in. Clemson's own engineers have published a RoCEv2/Ethernet roadmap. These are sophisticated buyers with public positions.</p>
+    <p class="prose">Show up <span class="hl">open-friendly and standards-first</span> or we lose to Arista and NVIDIA InfiniBand on principle before we ever get to price. A closed, proprietary-first pitch is disqualifying in this room.</p>
+  </div>
+
+  <div data-k="uni-o3">
+    <div class="dh"><span class="dc o">Play 03</span><h5>Time security to the leader, not the quarter</h5></div>
+    <div class="dmeta">Treat appointments as forecast events</div>
+    <p class="prose">NC State's CISO started June 2026. USC's CIO arrived in 2024. UNC has an undecided ZTNA bake-off with us already in the POC. Each of those is an open window that closes once the new leader's stack decisions harden.</p>
+    <p class="prose"><span class="hl">Map every new CIO and CISO appointment in the territory</span> and treat it as a forecast event on the same footing as a budget cycle. Nobody on the team is currently tracking this systematically.</p>
+  </div>
+
+  <div data-k="uni-r1">
+    <div class="dh"><span class="dc r">Risk</span><h5>Grant timing is not our timing</h5></div>
+    <div class="dmeta">Forecast discipline</div>
+    <p class="prose">NSF award schedules have been turbulent through 2025&ndash;26. <b>Do not stake a committed forecast on a grant landing on schedule.</b></p>
+    <p class="prose">The right structure is to forecast the operating-budget motion and treat the grant-funded fabric as upside. Teams that invert this will miss quarters for reasons entirely outside their control.</p>
+  </div>
+
+  <div data-k="uni-r2">
+    <div class="dh"><span class="dc r">Risk</span><h5>Open-source credibility</h5></div>
+    <div class="dmeta">Disqualification risk, not price risk</div>
+    <p class="prose">Duke and Clemson are both <b>publicly</b> shopping away from proprietary lock-in. A closed, proprietary-first fabric pitch loses on principle before it loses on price &mdash; and it damages the relationship for the next cycle.</p>
+    <p class="prose">Bring a SONiC-capable, RoCEv2-literate story into these accounts or do not bring one at all.</p>
+  </div>
+
+  <div data-k="uni-r3">
+    <div class="dh"><span class="dc r">Risk</span><h5>Unconfirmed incumbents</h5></div>
+    <div class="dmeta">Discovery gap</div>
+    <p class="prose">Firewall, NAC, EDR and SIEM vendors are <b>unconfirmed at several of these campuses</b>. Universities do not publish their infrastructure vendors and research will not close the gap.</p>
+    <p class="prose">Treat these as first-call discovery questions rather than assumptions, and re-verify before anything goes into forecast.</p>
+  </div>
+
+  <!-- ---------- COMMUNITY COLLEGES ---------- -->
+  <div data-k="cc-l1">
+    <div class="dh"><span class="dc">Perkins V</span><h5>Strengthening CTE for the 21st Century Act</h5></div>
+    <div class="dmeta">Formula &middot; every one of the 74 colleges qualifies today</div>
+    <dl>
+      <dt>Funds</dt><dd>Instructional and lab equipment tied to a CTE program. Switches, routers, firewalls and access points for a teaching lab are a clean fit, and the <b>industry-standard equipment test</b> actively favors a vendor the curriculum already names.</dd>
+      <dt>Won't fund</dt><dd class="no"><b>Capital work &mdash; cabling, electrical, construction</b> &mdash; or the campus backbone. It also cannot <b>supplant</b> existing spend, which rules out swapping it in for something already budgeted.</dd>
+      <dt>Cisco</dt><dd class="ci">Lab-grade <b>Catalyst, Meraki, Secure Firewall, ISE</b> tied to CCNA and CyberOps tracks. <b>Networking Academy</b> curriculum is the written basis for the industry-standard justification &mdash; it is a procurement document, not a marketing asset.</dd>
+    </dl>
+  </div>
+
+  <div data-k="cc-l2">
+    <div class="dh"><span class="dc">NSF ATE</span><h5>Advanced Technological Education</h5></div>
+    <div class="dmeta">Competitive &middot; gated on grant track record</div>
+    <dl>
+      <dt>Funds</dt><dd>Launching or expanding two-year technician programs and equipping their labs. Larger and considerably more flexible than Perkins.</dd>
+      <dt>Won't fund</dt><dd class="no">A college with no grant history. <b>Track record is the real gate</b> &mdash; which is why Wake Tech and Fayetteville Tech are credible candidates and Midlands and Horry-Georgetown are not yet.</dd>
+      <dt>Cisco</dt><dd class="ci">Same lab stack at bigger scope, plus the <b>Public Funding Office</b> will supply grant verbiage and review the proposal. Helping a college win its <em>first</em> ATE award is the highest-trust thing we can do anywhere in this vertical.</dd>
+    </dl>
+  </div>
+
+  <div data-k="cc-l3">
+    <div class="dh"><span class="dc">NSF CC*</span><h5>Campus Cyberinfrastructure</h5></div>
+    <div class="dmeta">$0.5&ndash;1M &middot; requires a research science driver</div>
+    <dl>
+      <dt>Funds</dt><dd>Real <b>production</b> networking and security infrastructure. It is the only lever in this vertical that does.</dd>
+      <dt>Won't fund</dt><dd class="no">Anything without a research science driver. For most two-year colleges that means <b>partnering with a university or an industry research anchor</b>, or not pursuing it at all.</dd>
+      <dt>Cisco</dt><dd class="ci">Production <b>Catalyst / Nexus, Secure Firewall, ISE, ThousandEyes.</b> Best near-term shots are Wake Tech (RTP and biotech adjacency) and Greenville Tech once its Industrial Cybersecurity and AI Center is operating.</dd>
+    </dl>
+  </div>
+
+  <div data-k="cc-l4">
+    <div class="dh"><span class="dc">SBTCE</span><h5>SC State Board equipment &amp; capital requests</h5></div>
+    <div class="dmeta">$75.0M ask &middot; South Carolina only &middot; centralized</div>
+    <dl>
+      <dt>Funds</dt><dd>The System's own biennial ask to the legislature. The FY2026-27 supplemental package requests <b>$75.0M non-recurring specifically for high-demand job-skills training equipment</b> across advanced manufacturing, healthcare, <b>IT</b> and energy &mdash; on top of $40.3M proposed for deferred maintenance and capital, and $150M+ already committed in FY2025-26.</dd>
+      <dt>Won't fund</dt><dd class="no">Anything won college-by-college. This is <b>centralized, not per-college competitive</b>, so influence has to happen at State Board level.</dd>
+      <dt>Cisco</dt><dd class="ci">Get named in the line item. This is the one lever in the vertical with real hardware size behind it, and it is an <b>association and system-office motion</b> rather than an account motion. Different muscle than the team currently uses.</dd>
+    </dl>
+  </div>
+
+  <div data-k="cc-l5">
+    <div class="dh"><span class="dc">readySC</span><h5>readySC / Apprenticeship Carolina</h5></div>
+    <div class="dmeta">Employer-triggered &middot; South Carolina only</div>
+    <dl>
+      <dt>Funds</dt><dd>Purpose-built training infrastructure the moment a company relocates or expands in South Carolina. Apprenticeship Carolina names <b>Cybersecurity/IT</b> as a target industry cluster. Midlands Tech and readySC stood up a dedicated center for Scout Motors' EV plant &mdash; that is the template to copy.</dd>
+      <dt>Won't fund</dt><dd class="no">Anything without an employer behind it. <b>Watch SC Commerce relocation announcements as the sales trigger</b>, not the college's own roadmap.</dd>
+      <dt>Cisco</dt><dd class="ci">Full training-center stack. An IT, data-center or tech-manufacturing relocation into the Midlands or Upstate turns a Tier 3 college into a Tier 1 opportunity overnight.</dd>
+    </dl>
+  </div>
+
+  <div data-k="cc-l6">
+    <div class="dh"><span class="dc">NC CAP</span><h5>NC county bonds &amp; the CTE-center priority</h5></div>
+    <div class="dmeta">$149M live on the Nov 3, 2026 ballot</div>
+    <dl>
+      <dt>Funds</dt><dd>Construction and renovation &mdash; the only way to pay for the cabling and electrical that Perkins will not touch. A <b>~$149M Wake Tech GO bond is on the November 3, 2026 ballot</b>, and the NC Needs-Based Public School Capital Fund now <b>prioritizes CTE Centers serving an entire public school unit</b>, which is technology-dense by definition.</dd>
+      <dt>Won't fund</dt><dd class="no">Anything automatically. An Anderson County SC school measure failed 82&ndash;18 in May 2026. <b>Do not book pipeline against an unvoted referendum.</b></dd>
+      <dt>Cisco</dt><dd class="ci">Greenfield design work &mdash; get into the standards conversation before construction documents are issued, not after the ribbon-cutting.</dd>
+    </dl>
+  </div>
+
+  <div data-k="cc-o1">
+    <div class="dh"><span class="dc o">Play 01</span><h5>Lead with Perkins everywhere</h5></div>
+    <div class="dmeta">Available at every college, every year</div>
+    <p class="prose">Perkins is the only lever in this vertical that is always on. And the <span class="hlg">industry-standard equipment test</span> does our sole-source justification work for us wherever the curriculum already runs on Cisco Networking Academy.</p>
+    <p class="prose">Central Piedmont, Greenville Tech and Spartanburg CC are all built that way today. The curriculum decision made years ago is the procurement argument now.</p>
+  </div>
+
+  <div data-k="cc-o2">
+    <div class="dh"><span class="dc o">Play 02</span><h5>Sell to the consortium, not the campus</h5></div>
+    <div class="dmeta">Leverage is the only way this vertical pays</div>
+    <p class="prose">Fayetteville Tech co-founds and leads the <span class="hlg">18-college Carolina Cyber Network</span>. Clemson operates SC-REN. Standardization decisions made at consortium level scale across dozens of institutions for the same selling effort.</p>
+    <p class="prose">Deal size per campus is genuinely small here. If we run this vertical as 74 individual account plans the math never works &mdash; the coverage cost exceeds the revenue.</p>
+  </div>
+
+  <div data-k="cc-o3">
+    <div class="dh"><span class="dc o">Play 03</span><h5>Treat designations and relocations as triggers</h5></div>
+    <div class="dmeta">Build a trigger calendar, not a call cadence</div>
+    <p class="prose">Four events unlock a lab refresh: an expiring NSA cyber-defense designation, a fresh CAE award, a passing bond, and a readySC-anchored employer landing.</p>
+    <p class="prose">None of those follow our fiscal calendar. <span class="hlg">Build a trigger calendar</span> and work it, rather than running a uniform call cadence across 74 colleges that mostly have no money this quarter.</p>
+  </div>
+
+  <div data-k="cc-r1">
+    <div class="dh"><span class="dc r">Risk</span><h5>Perkins cannot pay for cabling</h5></div>
+    <div class="dmeta">The most common scoping error in this vertical</div>
+    <p class="prose">Perkins funds the gear in the lab, not the pathway to it. Projects scoped without this in mind <b>stall at the conduit</b> &mdash; the switches arrive and there is no money to connect them.</p>
+    <p class="prose"><b>Pair every Perkins lab deal with a capital source</b>: a county bond, the SBTCE equipment line, or the NC CTE-center capital priority. If there isn't one, the deal is not real yet.</p>
+  </div>
+
+  <div data-k="cc-r2">
+    <div class="dh"><span class="dc r">Risk</span><h5>Uniform Guidance procurement</h5></div>
+    <div class="dmeta">2 CFR 200 &middot; applies the moment federal dollars appear</div>
+    <p class="prose">A sole-source Cisco award needs <b>documented justification</b>. Standardization and interoperability are the defensible grounds, but they have to be written down before the award, not reconstructed afterward.</p>
+    <p class="prose">Current thresholds: micro-purchase <b>$15,000</b>, simplified acquisition <b>$350,000</b>, effective October 1, 2025.</p>
+  </div>
+
+  <div data-k="cc-r3">
+    <div class="dh"><span class="dc r">Risk</span><h5>Price-reasonableness documentation</h5></div>
+    <div class="dmeta">Changed in the 2024 Uniform Guidance revisions</div>
+    <p class="prose">Recipients must now keep documented evidence of price reasonableness <b>even for micro-purchases</b> when they don't solicit quotes. "Put it on the co-op contract" is no longer sufficient on its own.</p>
+    <p class="prose">Hand the customer the artifact proactively &mdash; contract discount schedule, published rate card, comparables. It costs us nothing and it removes the most common reason a funded deal sits unsigned.</p>
+  </div>
+
+  <div data-k="cc-r4">
+    <div class="dh"><span class="dc r">Risk</span><h5>CAE designations expire</h5></div>
+    <div class="dmeta">Five-year cycle &middot; verify, don't assume</div>
+    <p class="prose">Every NSA cyber-defense designation runs a five-year cycle. Verify current status against the official CAE map rather than a dated press release &mdash; several in-territory claims trace back to announcements that are now stale.</p>
+    <p class="prose">Handled correctly this is an opportunity, not just a hygiene item: <b>treat each renewal as a buying trigger.</b></p>
+  </div>
+
+  <!-- ---------- K-12 ---------- -->
+  <div data-k="k12-l1">
+    <div class="dh"><span class="dc">E-Rate C2</span><h5>Category Two internal connections</h5></div>
+    <div class="dmeta">$201.57/student &middot; FY2026&ndash;FY2030 cycle &middot; non-rolling</div>
+    <dl>
+      <dt>Funds</dt><dd><b>Switches, routers, access points, wireless controllers, cabling, racks, UPS, caching and basic firewall</b>, plus the software that supports them including bug fixes and security patches. Discounts run to 85%. Budget is the greater of $201.57 &times; students or $30,175 &times; schools.</dd>
+      <dt>Won't fund</dt><dd class="no"><b>Advanced / next-gen firewalls</b> &mdash; the FCC declined again for FY2026. Also excluded: anti-virus, anti-spam, IDS/IPS, content filtering, end-user devices, <b>spares and redundant failover components</b>, and <b>24-hour network monitoring</b>. Budgets <b>do not roll over</b> between cycles.</dd>
+      <dt>Cisco</dt><dd class="ci">Multi-year <b>Meraki term licenses are listed at 100% eligible</b>, and the FY2026 reclassification of service SKUs to Internal Connections means they can be <b>requested in multi-year terms and paid in full in year one</b>. That is the single most important commercial mechanic in this vertical. Verify every SKU at ciscoerate.com first.</dd>
+    </dl>
+  </div>
+
+  <div data-k="k12-l2">
+    <div class="dh"><span class="dc">Cyber Pilot</span><h5>FCC Schools &amp; Libraries Cybersecurity Pilot</h5></div>
+    <div class="dmeta">$200M over 3 years &middot; all application windows closed</div>
+    <dl>
+      <dt>Funds</dt><dd>The four things E&#8209;Rate won't: <b>advanced/next-gen firewalls and FWaaS</b> (HA pairs included), <b>endpoint protection</b>, <b>identity and MFA</b>, and <b>monitoring, detection and response</b> &mdash; plus DNS-layer security, NAC, SASE, logging, email and web security, and immutable backups.</dd>
+      <dt>Won't fund</dt><dd class="no">New applicants. 707 participants were selected in January 2025 and all windows are closed; roughly $49.8M is committed against $3.7B of expressed demand. <b>Basic firewalls are categorically excluded</b> even if the applicant forgoes E&#8209;Rate. <b>No second window has been announced.</b></dd>
+      <dt>Cisco</dt><dd class="ci">The <b>13 NC and 10 SC named participants are a qualified, funded prospect list</b> &mdash; the best one in this entire briefing. Map <b>Secure Firewall, Secure Endpoint, Secure Access, Duo, ISE, XDR, Splunk</b> to the four categories. <span class="hlw">Re-map away from Umbrella and Meraki Systems Manager</span> &mdash; both appear in our own solution guide and both are end-of-sale.</dd>
+    </dl>
+  </div>
+
+  <div data-k="k12-l3">
+    <div class="dh"><span class="dc">NC SCI</span><h5>NC School Connectivity Initiative</h5></div>
+    <div class="dmeta">$12.7M state C2 support &middot; North Carolina only</div>
+    <dl>
+      <dt>Funds</dt><dd>The <b>non-discount share of Category Two</b>, allotted back to the district through PRC 073. In SFY2024 the state put $12.71M behind $57.28M of C2 spend. <b>A C2 refresh in North Carolina costs the district essentially nothing out of local funds</b> &mdash; and most reps do not know this.</dd>
+      <dt>Won't fund</dt><dd class="no">Any room for a perimeter-security sale. NCDIT provides <b>managed firewall, content filtering, endpoint protection and IAM free statewide</b>, and MCNC does wired, wireless and security assessments at no cost. Leading with any of those means competing against free.</dd>
+      <dt>Cisco</dt><dd class="ci">Lead with <b>Category Two internal connections</b>, physical security, and segmentation <em>inside</em> the LAN where the free shared services don't reach. NCDPI's own report to the General Assembly flags <b>advanced firewall and advanced endpoint protection as underfunded</b> since COVID money expired &mdash; their words, and exactly what the Cyber Pilot funds.</dd>
+    </dl>
+  </div>
+
+  <div data-k="k12-l4">
+    <div class="dh"><span class="dc">NC CAP</span><h5>NC lottery capital &amp; county GO bonds</h5></div>
+    <div class="dmeta">$408M/yr recurring &middot; ~$4.5B in flight &middot; Nov 3 ballot</div>
+    <dl>
+      <dt>Funds</dt><dd>Construction and renovation, which is where technology scope actually gets set. Annual: <b>Needs-Based Public School Capital Fund $258M</b> (county grants to $62M, and FY2026-27 <b>prioritizes CTE Centers</b>), <b>Building Capital Fund $100M</b>, <b>Repair &amp; Renovation $50M</b>. In delivery: <b>CMS $2.5B</b>, <b>Guilford $2.0B</b>. On the Nov 3 ballot: <b>Wake $680M plus $152M cash</b>, <b>Cabarrus $340M</b>, Person $107M.</dd>
+      <dt>Won't fund</dt><dd class="no">Anything on our timeline. <b>CMS projects completing in 2027 and 2028 are in design or early construction now.</b> Chasing them after ribbon-cutting is too late by years.</dd>
+      <dt>Cisco</dt><dd class="ci">Greenfield: <b>Catalyst / C9000 Smart Switches, Cisco Wireless CW917x, Meraki MV cameras and MT sensors, Webex Devices.</b> The Cabarrus bond language explicitly covers "<b>equipping</b>" facilities, which is the word that matters.</dd>
+    </dl>
+  </div>
+
+  <div data-k="k12-l5">
+    <div class="dh"><span class="dc">SC CAP</span><h5>SC penny tax, bonds &amp; K&#8209;12 Tech Initiative</h5></div>
+    <div class="dmeta">~$91M IT earmark on the Nov 3, 2026 ballot</div>
+    <dl>
+      <dt>Funds</dt><dd>The 1% Education Capital Improvement Tax is the real South Carolina money. <b>Charleston County's Nov 3 extension projects ~$1.25B including ~$91M explicitly for information and technology updates and ~$15M for security</b> &mdash; and this tax has passed every time it has appeared since 2010. Horry's 15-year tax names <b>technology, safety and security</b> in the authorizing language. Greenville funds capital from GO bonds within existing capacity with <b>no referendum required</b>.</dd>
+      <dt>Won't fund</dt><dd class="no">The gap North Carolina fills. SC's Category Two state match was <b>~$2.08M reaching only 26 of 71 districts</b>, so the district carries most of the local share. <span class="hlw">The FY2026-27 K&#8209;12 Technology Initiative appropriation may be carryover-only &mdash; verify before quoting a number.</span></dd>
+      <dt>Cisco</dt><dd class="ci">Full estate, but the financial pitch has to lean on the district's own capital and sales-tax revenue rather than a state match. <b>Expect harder price competition in SC than in NC</b> and plan partner strategy accordingly.</dd>
+    </dl>
+  </div>
+
+  <div data-k="k12-l6">
+    <div class="dh"><span class="dc">SAFETY</span><h5>School safety &amp; physical security</h5></div>
+    <div class="dmeta">$20M SC &middot; $32.9M NC SRO &middot; carryforward to Jun 30, 2027</div>
+    <dl>
+      <dt>Funds</dt><dd><b>Cameras, access control, mass notification, two-way radio and door locking.</b> SC allocates $20M with "<b>electronic or other technology</b>" as an eligible category. NC's SRO money is recurring and flowing ($32.9M to 198 units), and <b>districts holding 2021-23 and 2023-25 School Safety Grant balances have until June 30, 2027 to spend them</b> &mdash; live, already-appropriated money sitting unspent. Federal: BJA STOP ($111M) and COPS SVPP ($73M, FY27 cycle ~Q2 2027).</dd>
+      <dt>Won't fund</dt><dd class="no">SC money cannot touch a <b>district data center, NOC or central office</b> &mdash; eligible facilities are "locations with daily student attendance" only. NC's new safety <em>equipment</em> appropriation is <b>contingent on the state budget, and CFSS says funds were not available for distribution.</b> Do not forecast it.</dd>
+      <dt>Cisco</dt><dd class="ci"><b>Meraki MV cameras and MT sensors</b> on a cloud-managed estate, <b>Cisco Spaces</b>, and <b>Webex</b> for notification workflows. NC statute requires updating law-enforcement documentation <b>whenever access control devices change</b> &mdash; a built-in reason to get the district and the sheriff in the same conversation.</dd>
+    </dl>
+  </div>
+
+  <div data-k="k12-l7">
+    <div class="dh"><span class="dc">Dead</span><h5>ESSER &middot; bus Wi&#8209;Fi &middot; hotspots &middot; Digital Equity</h5></div>
+    <div class="dmeta">Confirmed closed &mdash; scrub from every forecast</div>
+    <dl>
+      <dt>Status</dt><dd><b>ESSER's final liquidation deadline passed March 28, 2026</b> and the Department confirmed no further extensions. Nothing replaced it. <b>School bus Wi&#8209;Fi and off-premises hotspots became ineligible September 30, 2025</b>, reversing the 2023&ndash;24 expansions. The Digital Equity Act state capacity program remains canceled.</dd>
+      <dt>Action</dt><dd class="no"><b>Push back on any forecast that still lines up ESSER.</b> There is a use for this, though: if a district's technology plan still references bus Wi&#8209;Fi or hotspots as E&#8209;Rate-funded, that plan predates September 2025 &mdash; which is a credible, entirely non-salesy reason to request a planning conversation.</dd>
+    </dl>
+  </div>
+
+  <div data-k="k12-o1">
+    <div class="dh"><span class="dc o">Play 01</span><h5>Open with a C2 budget utilization review</h5></div>
+    <div class="dmeta">Legitimate, urgent, and not a sales pitch</div>
+    <p class="prose">Category Two budgets are five-year and <span class="hlw">non-rolling</span>. A district that underspends permanently forfeits the money &mdash; there is no carryforward and no appeal.</p>
+    <p class="prose">Student counts are validated the first year a district applies in the cycle and then <b>locked for five years</b>, and enrollment is falling across both states. <b>Districts that haven't yet validated their FY2026&ndash;2030 count have a shrinking window to lock in a larger number.</b> That conversation is genuinely in the district's interest, which is why it opens doors that a product pitch doesn't.</p>
+  </div>
+
+  <div data-k="k12-o2">
+    <div class="dh"><span class="dc o">Play 02</span><h5>Work the contract structure, not the list price</h5></div>
+    <div class="dmeta">Two price-aggressive competitors just lost position</div>
+    <p class="prose">NCDPI dropped <span class="hlw">Fortinet and Ubiquiti</span> from the Category Two master contract for the FY26 term, and Palo Alto can only bid firewalls and managed services on that vehicle. Cisco and Meraki now cover five of nine segments &mdash; broader than anyone except Juniper.</p>
+    <p class="prose">Every deal still runs through a <b>price-weighted mini-bid</b>, so we win on the permitted secondary factors: compatibility with existing infrastructure, prior performance, references and training. Those are winnable and we under-invest in documenting them.</p>
+  </div>
+
+  <div data-k="k12-o3">
+    <div class="dh"><span class="dc o">Play 03</span><h5>Fix the partner math in North Carolina</h5></div>
+    <div class="dmeta">Structural disadvantage in the mini-bid mechanic</div>
+    <p class="prose"><span class="hlw">CDW-G carries nearly every competitor on the NCDPI contract but not Cisco</span> &mdash; and was the top E&#8209;Rate service provider by commitment in a recent FY2026 decision wave.</p>
+    <p class="prose">In any NC mini-bid they are quoting three or four competitors while our quote comes from a narrower partner set. That is not a selling-skill problem, it is a structural one, and it should shape partner strategy deliberately rather than deal by deal.</p>
+  </div>
+
+  <div data-k="k12-r1">
+    <div class="dh"><span class="dc r">Risk</span><h5>The FCC is reviewing Category Two itself</h5></div>
+    <div class="dmeta">June 2026 NPRM &middot; the biggest policy risk in the briefing</div>
+    <p class="prose">Chairman Carr's "top-to-bottom review" &mdash; the most comprehensive since 1997 &mdash; <b>explicitly asks whether internal connections funding should continue at all.</b> Comments closed October 13; replies are due November 12.</p>
+    <p class="prose">Nothing has changed operationally and FY2026 was fully funded. But <b>discount any C2 forecast past FY2028</b>. The flip side is that this is a legitimate <b>pull-forward argument</b> with districts sitting on unspent budget.</p>
+  </div>
+
+  <div data-k="k12-r2">
+    <div class="dh"><span class="dc r">Risk</span><h5>The SC "compatible solutions" lot structure</h5></div>
+    <div class="dmeta">Every SC installed base is now contested ground</div>
+    <p class="prose">South Carolina's new five-year Category Two statewide contract gives Cisco its own lot, which reads like a win. But <b>every lot permits "functionally equivalent solutions fully compatible with the end user's existing environment."</b></p>
+    <p class="prose">That means a competitor can bid Cisco-compatible gear <b>into our lot, against our own installed base.</b> Confirm the September 8 award results immediately and brief the SC team on what the language actually allows.</p>
+  </div>
+
+  <div data-k="k12-r3">
+    <div class="dh"><span class="dc r">Risk</span><h5>Competing against free in North Carolina</h5></div>
+    <div class="dmeta">Positioning error, entirely self-inflicted</div>
+    <p class="prose">NCDIT gives districts managed firewall, content filtering, endpoint protection and IAM at no charge, and MCNC performs network and security assessments free.</p>
+    <p class="prose"><b>Leading with perimeter security or a paid assessment in NC loses to free</b> &mdash; and it makes us look like we didn't do our homework. Lead with C2 internal connections and in-LAN segmentation instead, where the shared services don't reach.</p>
+  </div>
+
+  <div data-k="k12-r4">
+    <div class="dh"><span class="dc r">Risk</span><h5>Our own end-of-life SKUs</h5></div>
+    <div class="dmeta">Biggest self-inflicted wound in the whole briefing</div>
+    <p class="prose"><b>Umbrella</b> goes end-of-sale January 31, 2027. <b>Meraki Systems Manager</b> already did, on June 3, 2026. Both are <b>still named in Cisco's own K&#8209;12 Cybersecurity Pilot solution guide.</b></p>
+    <p class="prose">Re-map to <b>Secure Access</b> / <b>DNS Defense</b> and <b>Ivanti Neurons for MDM</b> before the next quote goes out. Quoting a dead SKU into a funded, competitively-reviewed deal is the kind of error that costs the relationship, not just the order.</p>
+  </div>
+
+  <!-- ---------- HEALTHCARE ---------- -->
+  <div data-k="hc-l1">
+    <div class="dh"><span class="dc">RHTP</span><h5>Rural Health Transformation Program (CMS)</h5></div>
+    <div class="dmeta">NC $213.0M &middot; SC $200.0M year one &middot; FY2027 notice Oct 31</div>
+    <dl>
+      <dt>Funds</dt><dd>$50B over FY2026&ndash;FY2030. The statutory uses name <b>remote monitoring, robotics, artificial intelligence, software and hardware for significant IT advances, and cybersecurity capability development</b> outright &mdash; unusually explicit language for a health program. SC has already awarded <b>228 sub-grants worth $167.3M</b>, which is a published, named prospect list. NC runs a <b>Rural Health Innovation Fund of up to $20M/yr</b> with the State Treasurer helping providers assess systems, <b>vet vendors and manage procurement</b>.</dd>
+      <dt>Won't fund</dt><dd class="no">Growth on top of a stable baseline. NC's own Governor's office paired the award with a warning about ~$50B in Medicaid federal funds lost over ten years. <b>Half the annual allocation is performance-recalculated</b>, so out-year money is not guaranteed.</dd>
+      <dt>Cisco</dt><dd class="ci">Read the <b>NC and SC state project abstracts</b> before any rural conversation and build the motion around what each state actually committed to. CMS assigns a state project officer, so there is a known owner to map.</dd>
+    </dl>
+  </div>
+
+  <div data-k="hc-l2">
+    <div class="dh"><span class="dc">HIPAA</span><h5>Proposed HIPAA Security Rule overhaul</h5></div>
+    <div class="dmeta">~$9B industry cost year one &middot; final action anticipated ~Jul 2027</div>
+    <dl>
+      <dt>Funds</dt><dd>Nothing directly &mdash; but it creates <b>board-level obligation</b>, which is better than a grant. The NPRM would mandate <b>multi-factor authentication, network segmentation, an annually refreshed technology asset inventory and a network map showing how ePHI moves</b>, encryption at rest and in transit, six-month vulnerability scans, annual penetration testing, and 72-hour restoration procedures. It eliminates the "addressable" loophole that has let systems defer for twenty years.</dd>
+      <dt>Won't fund</dt><dd class="no">Anything today. It is <b>pending and has moved to Long-Term Actions with anticipated final action July 2027.</b> <span class="hlw">Say "proposed," always</span> &mdash; a CISO will correct you and you will lose the room.</dd>
+      <dt>Cisco</dt><dd class="ci">The four load-bearing items map directly: MFA &rarr; <b>Duo</b>; segmentation &rarr; <b>ISE, SD-Access, Hypershield</b>; asset inventory and ePHI network map &rarr; <b>Medical NAC + Claroty, ThousandEyes, Splunk</b>. All are multi-quarter programs. <b>Systems that start in FY2027 will be ready; systems that wait for the final rule will not.</b></dd>
+    </dl>
+  </div>
+
+  <div data-k="hc-l3">
+    <div class="dh"><span class="dc">SC CON</span><h5>SC Certificate of Need sunset</h5></div>
+    <div class="dmeta">$4B+ announced &middot; sunsets Jan 1, 2027</div>
+    <dl>
+      <dt>Funds</dt><dd>Greenfield hospitals, where full-stack technology decisions get made two to four years before opening. Already announced: <b>Roper St. Francis $1.2B / 805,000 sq ft / 328 beds</b> in North Charleston (steel going up now, opens 2029), <b>MUSC's $1.115B cancer hospital</b> with a <b>$230M equipment and furnishings line</b> (2030), <b>Prisma's $500M commercial paper program</b> across five named projects, plus CaroMont's first SC hospital at Lake Wylie (2031), Novant at Nexton and Atrium at Fort Mill.</dd>
+      <dt>Won't fund</dt><dd class="no">Decisions made in South Carolina. <b>Out-of-state systems entering SC will extend existing enterprise standards from Charlotte, Winston-Salem and Gastonia.</b> The incumbent-vendor decision happens at the parent, not the site.</dd>
+      <dt>Cisco</dt><dd class="ci">Clean-sheet full stack. <b>Follow the parent relationship, not the geography</b> &mdash; and on Roper's target-value delivery method, early technical engagement disproportionately shapes outcomes because the team trades scope against budget continuously rather than at fixed gates.</dd>
+    </dl>
+  </div>
+
+  <div data-k="hc-l4">
+    <div class="dh"><span class="dc">NC HASP</span><h5>NC directed payments &amp; the margin window</h5></div>
+    <div class="dmeta">~$3.4B/yr &middot; steps down 10% per year under H.R.1</div>
+    <dl>
+      <dt>Funds</dt><dd>Hospital operating margin, which is what actually pays for infrastructure in this vertical. <b>Both our anchor accounts are carried by it.</b> UNC Health recognized <b>$416M</b> in FY2025 &mdash; strip it out and their 7.2% operating margin falls to roughly 1.6%. Duke Health recognized <b>$417.2M gross, $269.7M net, against total operating income of $179.0M</b>, meaning their FY2025 operations were negative without it. Novant posted $1.16B net income; Atrium $1.66B+.</dd>
+      <dt>Won't fund</dt><dd class="no">Indefinitely &mdash; but note the timing carefully, because getting it wrong cuts against us. <b>The 10%/year step-down has not started.</b> It begins with rating periods on or after <b>January 1, 2028</b>, running until payments are capped at 100% of Medicare, and the provider-tax safe harbor separately drops to 3.5% by 2032. The NC Healthcare Association's read is that HASP's benefit is then <b>"virtually eliminated" &mdash; up to $6.5B for North Carolina.</b> <span class="hlw">FY2025 was the largest HASP year on record at both anchors. The pressure is anticipated, not yet realized.</span></dd>
+      <dt>Cisco</dt><dd class="ci">That timing is the argument, not a caveat. Boards are <b>pulling capital forward while balance sheets are strong</b> and will tighten once the step-down bites. UNC Health filing roughly $1.77B of new-hospital CONs inside ten weeks, while HASP is at peak and credit outlooks are positive, is exactly that behavior. <span class="hlw">FY2027 is a better year to close large NC healthcare capital than FY2029.</span> Say it to the account teams explicitly.</dd>
+    </dl>
+  </div>
+
+  <div data-k="hc-l5">
+    <div class="dh"><span class="dc">FCC RHC</span><h5>FCC Rural Health Care / Healthcare Connect Fund</h5></div>
+    <div class="dmeta">$744.2M program cap &middot; flat 65% &middot; FY27 window opens Dec 1</div>
+    <dl>
+      <dt>Funds</dt><dd>A <b>flat 65% discount</b> on broadband and network services for rural healthcare providers and consortia, plus network equipment <b>necessary to make the funded HCF broadband functional</b>. Consortium applicants can get upfront charges and multi-year commitments.</dd>
+      <dt>Won't fund</dt><dd class="no">A wireless refresh. <b>Computers, end-user wireless devices, tablets, smartphones and video/audio/web conferencing equipment are explicitly ineligible</b>, and equipment support is unavailable for networks not dedicated to healthcare. The 35% match <b>cannot come from the vendor</b> &mdash; that rule trips up vendor-financed deals more than any other in the program.</dd>
+      <dt>Cisco</dt><dd class="ci">Treat it as a <b>consortium WAN/SD-WAN and dedicated-network play</b>, not a campus play. Best fit is a multi-site rural system that already has an RHC consultant engaged.</dd>
+    </dl>
+  </div>
+
+  <div data-k="hc-l6">
+    <div class="dh"><span class="dc">AHCAH</span><h5>Hospital-at-home &amp; telehealth certainty</h5></div>
+    <div class="dmeta">Authorized through Sep 30, 2030 &middot; five-year planning horizon</div>
+    <dl>
+      <dt>Funds</dt><dd>Nothing directly &mdash; but it is the most useful regulatory fact in this vertical for a networking seller. <b>Acute Hospital Care at Home is extended five years through September 30, 2030</b> and codified; Medicare telehealth flexibilities run through December 31, 2027. Both lapsed twice during shutdowns before being restored retroactively.</dd>
+      <dt>Won't fund</dt><dd class="no">Anything that works without clinical-grade connectivity. Hospital-at-home at scale needs RPM aggregation, guaranteed reach into the patient's home, command-center infrastructure and measurable network reliability &mdash; none of which the clinical team owns.</dd>
+      <dt>Cisco</dt><dd class="ci">The five-year horizon is the <b>first time hospital-at-home has had planning certainty long enough to justify capital.</b> That turns it from a pilot conversation into a durable three-year account plan anchored on <b>ThousandEyes, Secure Access for remote clinicians, and Webex</b>.</dd>
+    </dl>
+  </div>
+
+  <div data-k="hc-l7">
+    <div class="dh"><span class="dc">Small</span><h5>USDA DLT &middot; HRSA SHIP &middot; state capital</h5></div>
+    <div class="dmeta">$13.5K&ndash;$750K &middot; tactical only, do not forecast</div>
+    <dl>
+      <dt>Funds</dt><dd><b>USDA DLT</b>: $50K&ndash;$750K awards with a 15% non-federal match and unusually favorable eligibility &mdash; AV equipment, monitors and displays, telemedical devices, <b>cybersecurity software</b> and <b>videoconferencing licenses</b> tied to the project. <b>HRSA SHIP</b>: ~$13.5K per hospital under 50 beds, with cybersecurity software subscriptions, training and risk assessments explicitly allowable. NC state capital has also delivered $40M to ECU Health / Martin County and $208.5M in health capital for the biennium.</dd>
+      <dt>Won't fund</dt><dd class="no">Infrastructure at scale. DLT caps applicant-owned broadband facilities at 20% of the grant and <b>is currently not accepting applications due to funding constraints</b>. SHIP is a subscription-renewal budget, not a project budget. <b>Do not build a forecast on either.</b></dd>
+      <dt>Cisco</dt><dd class="ci">DLT is the <b>telehealth-room program</b> lever and it is the mirror image of FCC RHC &mdash; it funds endpoints and video where RHC won't, and caps the network where RHC pays. A rural hospital can reasonably run both at once, which is a useful thing to know in the room.</dd>
+    </dl>
+  </div>
+
+  <div data-k="hc-a1">
+    <div class="dh"><span class="dc">Anchor #1</span><h5>Duke Health</h5></div>
+    <div class="dmeta">$7.29B FY2025 &middot; four hospitals, 1,821 beds &middot; 38,000+ employees</div>
+    <dl>
+      <dt>How they buy</dt><dd><b>Private nonprofit controlled by Duke University</b> &mdash; they cannot reliably buy off NC state term contracts. Real vehicles are <b>Vizient</b> (signed jointly for the health system and the university) and direct negotiation; Vizient's own CFO described Duke's prior posture as "a self-contracting approach." <b>DHTS and Duke University OIT are separate buying centers with separate security reviews</b> &mdash; a contract with one does not cover the other.</dd>
+      <dt>Who owns it</dt><dd><b>There is no CIO of Duke Health.</b> <b>Randy Arvay is CTO <em>and</em> CISO</b>, running ~600 people across hybrid infrastructure, cloud, unified communications and cyber defense. One person owns the network budget and the security budget. Jeffrey Ferranti is <b>Chief Digital Officer</b>, not CIO &mdash; he left that role in January 2022. Route medical-device security through <b>Eric Poon, MD (CHIO)</b>; Clinical Engineering and its 50,000+ devices report to him.</dd>
+      <dt>The money</dt><dd>Operating margin swung from <b>0.3% to 4.6%</b> in the first half of FY2026 &mdash; $189.8M of operating income against $12.0M the prior-year half. But <b>HASP was $417.2M gross and $269.7M net in FY2025, against total operating income of $179.0M.</b> Without HASP their operations were negative. Capital in flight: <b>Cary $854.2M</b>, Garner ED $32.3M, and two bed projects at $39.9M and $23M. Rated Aa3 / AA&minus; / AA&minus;, with $540M of bonds cleared in June 2025 explicitly including "equipping a new facility."</dd>
+      <dt>The opening</dt><dd class="ci"><b>Network and IT infrastructure is Certificate-of-Need exempt in North Carolina, and Duke has already used the exemption on a networking project</b> &mdash; their counsel filed under the data-processing-equipment provision to upgrade networking and wireless at Lake Norman even though the cost cleared the CON threshold. Every other Duke project took 6&ndash;14 months of state review. Network spend does not. It is the fastest-closing category in their capital stack. Their 2018&ndash;19 fiber core was sold internally as a <b>seven-year investment</b>, which puts it at refresh age now.</dd>
+      <dt>Watch out</dt><dd class="no">Duke is <b>four</b> hospitals, not three &mdash; they bought Lake Norman Regional in Mooresville for $284.3M in April 2025, their first hospital outside the Triangle and their entry into the Charlotte metro. Do not say "Private Diagnostic Clinic"; it was folded into Duke Health Integrated Practice. <b>Their ABCDS Oversight program governs every algorithmic solution touching patient care, including procured ones</b> &mdash; budget for that gate on anything with embedded analytics. And <b>we have no verified network incumbency at Duke Health in either direction</b>; a search tool claimed Cisco NAC and the cited source does not say that.</dd>
+    </dl>
+  </div>
+
+  <div data-k="hc-a2">
+    <div class="dh"><span class="dc">Anchor #2</span><h5>UNC Health</h5></div>
+    <div class="dmeta">$7.40B FY2025 &middot; ~16 hospitals, ~20 campuses &middot; all 100 counties</div>
+    <dl>
+      <dt>How they buy</dt><dd>The most useful fact in this briefing. UNC Health is a <b>State agency and political subdivision</b> &mdash; a federal court called it an "arm of the State" &mdash; <b>and it is expressly exempt from North Carolina's core purchasing statutes</b> under G.S. 116-350.45. Its own Board sets purchasing policy; the Division of Purchase and Contract gets review and comment only. <b>State term contracts are a pricing option, never a mandate.</b> It also holds its own bond authority and self-governs design and construction vendor selection. <span class="hlw">Do not sell UNC Health as a "state contract" account, and do not sell it as a private nonprofit either &mdash; neither shorthand survives contact with the statute.</span></dd>
+      <dt>Who owns it</dt><dd><b>Brent Lamm, SVP and CIO</b> since July 2022 and inside UNC Health for 14+ years &mdash; an internal promotion, not an outside hire. <b>Dee Young is CISO</b> (formerly HCA), and <b>S. David McSwain, MD is System CMIO</b> and the clinical gatekeeper for enterprise technology standardization. Clinical engineering reports up through IT, so medical-device security is an ISD budget line rather than a facilities one. New CEO <b>Dr. Cristy Page</b> took office November 2025 and her own specialty is rural health and primary care.</dd>
+      <dt>The structural gift</dt><dd class="ci"><b>Information Services Division is centralized, and new hospitals get no local IT organization.</b> UNC Health's own Asheville CON filing states that information technology "will be provided via centralized UNC Health Shared Services." That means network, security and infrastructure decisions for every new facility are made once, in Chapel Hill. <b>Sell one enterprise agreement to ISD rather than running a campaign per site.</b> Their vendor contracts are also shielded from public records under G.S. 116-350.65 &mdash; we cannot FOIA the incumbent, and competitors cannot FOIA us.</dd>
+      <dt>The money</dt><dd>FY2025 operating revenue $7.404B on a <b>7.2% margin</b> &mdash; but <b>$416M of that was HASP</b>. Strip HASP out and the margin is roughly 1.6%. Roughly <b>$1.77B of net-new hospital CONs are awaiting decision right now</b>: Wilmington $852.7M for 150 beds, Asheville $747.4M for 92 beds, and 233 beds at Rex for $169.6M with a hearing October 15. <b>The Asheville filing publishes its technology lines &mdash; $31.5M of non-medical equipment and $8.2M of consultant fees covering low-voltage systems and commissioning.</b> They have issued no new-money bonds since February 2021, so the financing conversation is still open.</dd>
+      <dt>Funding levers unique to them</dt><dd class="ci"><b>UNC Health is the NC ROOTS Hub Lead for Region 4 &mdash; the only provider organization holding a hub lead in the entire $213M/year Rural Health Transformation Program.</b> It governs and sub-grants across 14 counties, and the program has a named digital-health workstream. Separately, <b>$40M of NC CARE money was announced for UNC Health Rockingham in February 2026 explicitly to "enhance critical infrastructure."</b> Note the limit: outside Region 4 their own affiliates sit under other hub leads, so a single "UNC Health RHTP" motion will not work.</dd>
+      <dt>Watch out</dt><dd class="no"><span class="hlw">The Cisco Meraki wireless selection everyone is citing belongs to UNC&#8209;Chapel Hill's ITS &mdash; the university, not the health system.</span> They are separate organizations with separate procurement authority. Walking into UNC Health claiming a Meraki win would be immediately and visibly wrong. Also: the Cary campus is <b>not</b> imminent &mdash; approved services date is January 2032 &mdash; and it is physically in Durham County despite the name.</dd>
+    </dl>
+  </div>
+
+  <div data-k="hc-a3">
+    <div class="dh"><span class="dc">The rest</span><h5>Everyone else in the region</h5></div>
+    <div class="dmeta">Six systems &middot; larger in aggregate than both anchors combined</div>
+    <p class="prose"><b>Advocate / Atrium Health</b> &mdash; Charlotte, over $38.9B revenue and the largest opportunity in the region. Atrium planned $1.07B of capital in 2026, and the <b>WakeMed combination</b> (a $2B investment pledge, 3,300 jobs) cleared its county vote in September 2026. <b>The integration architecture is being decided in Q4 2026 and H1 2027.</b></p>
+    <p class="prose"><b>Prisma Health</b> &mdash; a $500M commercial paper program across five named projects. <b>MUSC</b> &mdash; a $1.115B cancer hospital with a <b>$230M equipment and furnishings line</b>, and the one system in the territory where a single enterprise CIO covers both the university and the health system. <b>Novant</b> &mdash; $11.91B revenue, simultaneously defending Wilmington against UNC Health, entering Asheville, and entering South Carolina.</p>
+    <p class="prose"><b>Roper St. Francis</b> &mdash; $1.2B and 805,000 sq ft in North Charleston, steel going up now for a 2029 opening, delivered under a target-value method where early technical engagement disproportionately shapes outcomes. <b>ECU Health</b> &mdash; DSH-heavy and squeezed; lead OpEx there specifically.</p>
+    <p class="prose"><b>The pattern worth naming to leadership:</b> <span class="hlw">out-of-state systems entering South Carolina will extend existing enterprise standards from Charlotte, Winston-Salem and Gastonia.</span> The incumbent-vendor decision happens at the parent, not the site &mdash; so follow the parent relationship rather than the geography.</p>
+  </div>
+
+  <div data-k="hc-o1">
+    <div class="dh"><span class="dc o">Play 01</span><h5>Lead with consolidation, not capability</h5></div>
+    <div class="dmeta">Ride the dominant budget motion instead of fighting it</div>
+    <p class="prose">CHIME's 2026 CIO survey puts <span class="hlg">application and portfolio rationalization tied with cybersecurity and EHR optimization at 22% each</span> as the top budget priority, with 61% calling rationalization high-urgency. Systems are explicitly funding AI by retiring applications.</p>
+    <p class="prose">A proposal that <em>adds</em> a platform is fighting for share of a contested budget. One that <em>replaces three or four tools</em> is riding the motion the CIO is already being measured on. Same technology, completely different reception.</p>
+  </div>
+
+  <div data-k="hc-o2">
+    <div class="dh"><span class="dc o">Play 02</span><h5>Structure it as OpEx or lose on structure</h5></div>
+    <div class="dmeta">75% OpEx / 25% CapEx &mdash; not a preference, a constraint</div>
+    <p class="prose">70% of health-system CIOs report a <span class="hlg">75% OpEx / 25% CapEx</span> split, essentially unchanged year over year, even as a third now allocate 5% of net patient revenue to IT. Subscription and consumption models match how the money actually moves.</p>
+    <p class="prose">A capital-heavy proposal loses here <b>regardless of how the TCO math works</b>. And <b>managed SOC is the single function CIOs most want to outsource</b> at 22% &mdash; the highest-intent adjacency anywhere in this vertical.</p>
+  </div>
+
+  <div data-k="hc-o3">
+    <div class="dh"><span class="dc o">Play 03</span><h5>Win the enforcement plane, don't fight the discovery vendors</h5></div>
+    <div class="dmeta">A much better fight, and the NPRM makes it mandatory</div>
+    <p class="prose">Claroty has taken Best in KLAS for healthcare IoT security four years running. Armis, Asimily, Forescout and Palo Alto are all Leaders. We are a Strong Contender with a huge network footprint and less clinical workflow depth &mdash; that is an honest read of where we sit.</p>
+    <p class="prose"><span class="hlg">Where discovery is already deployed, the question is not "how do we displace them" &mdash; it is "who enforces the segmentation policy their discovery recommends."</span> We win that one on network position, and the proposed HIPAA rule is about to make it a requirement rather than a project.</p>
+  </div>
+
+  <div data-k="hc-r1">
+    <div class="dh"><span class="dc r">Risk</span><h5>Claiming mandates that don't exist</h5></div>
+    <div class="dmeta">Credibility risk &mdash; these buyers will catch it</div>
+    <p class="prose">Three false statements circulate constantly in this market. <b>The Joint Commission does not have new 2025/26 cybersecurity requirements</b> &mdash; the 2026 standards are a streamlining release that eliminated 700+ elements of performance, and the Commission has formally argued <em>against</em> cyber Conditions of Participation. <b>HIPAA does not yet require MFA or segmentation.</b> <b>CMS has not tied payment or Conditions of Participation to the HPH CPGs</b> &mdash; they remain voluntary.</p>
+    <p class="prose">Say <b>"proposed."</b> A healthcare CISO knows this material better than we do, and one overstatement ends the meeting.</p>
+  </div>
+
+  <div data-k="hc-r2">
+    <div class="dh"><span class="dc r">Risk</span><h5>The 340B and HASP squeeze lands in FY2027</h5></div>
+    <div class="dmeta">Name the affected accounts and change the structure</div>
+    <p class="prose">The 340B rebate pilot starts January 1, 2027 and providers project substantial cash-flow drag &mdash; at least one system has publicly warned of "diversion of funding for capital." Combined with the 10%/year HASP step-down, this compounds.</p>
+    <p class="prose">Expect DSH-heavy safety-net systems &mdash; <b>ECU Health, MUSC, Prisma</b> &mdash; to defer discretionary capital. <b>Lead OpEx and as-a-service structures at those accounts specifically</b> rather than applying one commercial model across the vertical.</p>
+  </div>
+
+  <div data-k="hc-r3">
+    <div class="dh"><span class="dc r">Risk</span><h5>We do not know where we stand</h5></div>
+    <div class="dmeta">Install-base blind spot across the entire vertical</div>
+    <p class="prose"><b>Cisco's network and security incumbency is unconfirmed at every system in this vertical.</b> That is normal &mdash; health systems don't publish infrastructure vendors &mdash; but it means install-base data has to come from CRM and partner records, not from research.</p>
+    <p class="prose">Do not let anyone treat the absence of evidence as evidence of absence, <b>in either direction</b>. We are as likely to be surprised by a strong position as a weak one.</p>
+  </div>
+
+  <div data-k="hc-r4">
+    <div class="dh"><span class="dc r">Risk</span><h5>Every AI conversation needs a number</h5></div>
+    <div class="dmeta">CFO review is where these proposals die</div>
+    <p class="prose">Bain and KLAS found the most common formal return threshold among healthcare buyers is <b>3.0x&ndash;3.9x return on original investment</b>. That is the bar, and it is applied.</p>
+    <p class="prose">Presenting AI-enablement infrastructure without a quantified operational return will not survive CFO review regardless of how good the architecture is. If the account team can't state the number, the deal isn't ready to present.</p>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var stage  = document.getElementById('stage');
+  var cards  = Array.prototype.slice.call(document.querySelectorAll('.vc'));
+  var bodies = Array.prototype.slice.call(document.querySelectorAll('.vbody'));
+  var store  = document.getElementById('store');
+
+  var EMPTY = '<div class="empty">'
+    + '<span class="big">Pick any item to the left</span>'
+    + '<p>Hover to preview it, click to keep it on screen. This is where the depth lives &mdash; nothing else needs to be read out loud.</p>'
+    + '<span class="kbd">Esc</span></div>';
+
+  /* ---- level 1 <-> level 2 ---- */
+  function openVertical(v){
+    stage.setAttribute('data-mode','v');
+    cards.forEach(function(c){ c.classList.toggle('on', c.getAttribute('data-v') === v); });
+    bodies.forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-v') === v); });
+  }
+
+  function goHome(){
+    stage.setAttribute('data-mode','home');
+    cards.forEach(function(c){ c.classList.remove('on'); });
+    bodies.forEach(function(b){ b.classList.remove('on'); });
+    resetPanes();
+  }
+
+  cards.forEach(function(c){
+    c.addEventListener('click', function(){ openVertical(c.getAttribute('data-v')); });
+  });
+  Array.prototype.slice.call(document.querySelectorAll('.back')).forEach(function(b){
+    b.addEventListener('click', goHome);
+  });
+
+  /* ---- level 3: the detail pane ---- */
+  function paneFor(el){ return el.closest('.vbody').querySelector('.pane'); }
+
+  function render(pane, key){
+    var src = store.querySelector('[data-k="' + key + '"]');
+    pane.innerHTML = src ? src.innerHTML : EMPTY;
+  }
+
+  function resetPanes(){
+    Array.prototype.slice.call(document.querySelectorAll('.pane')).forEach(function(p){ p.innerHTML = EMPTY; });
+    Array.prototype.slice.call(document.querySelectorAll('.it')).forEach(function(i){ i.classList.remove('sel'); });
+  }
+
+  Array.prototype.slice.call(document.querySelectorAll('.it')).forEach(function(item){
+    var key  = item.getAttribute('data-k');
+    var pane = paneFor(item);
+
+    // hover previews without disturbing whatever is pinned
+    item.addEventListener('mouseenter', function(){ render(pane, key); });
+    item.addEventListener('mouseleave', function(){
+      var pinned = item.closest('.vbody').querySelector('.it.sel');
+      if(pinned){ render(pane, pinned.getAttribute('data-k')); }
+      else { pane.innerHTML = EMPTY; }
+    });
+
+    // click pins it, clicking again releases
+    item.addEventListener('click', function(){
+      var wasSel = item.classList.contains('sel');
+      Array.prototype.slice.call(item.closest('.vbody').querySelectorAll('.it')).forEach(function(i){
+        i.classList.remove('sel');
+      });
+      if(wasSel){ pane.innerHTML = EMPTY; }
+      else { item.classList.add('sel'); render(pane, key); }
+    });
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key !== 'Escape') return;
+    var open = document.querySelector('.vbody.on');
+    if(open && open.querySelector('.it.sel')){ resetPanes(); }
+    else if(open){ goHome(); }
+  });
+
+  resetPanes();
+})();
+</script>
+</body>
+</html>
