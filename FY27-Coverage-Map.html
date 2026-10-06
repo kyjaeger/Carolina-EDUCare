@@ -252,6 +252,85 @@
   .lperson span{font-size:12px;color:var(--tx2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .lgroup{padding:13px 15px 7px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--tx3);background:#0d141d;border-bottom:1px solid #141b25;display:flex;align-items:center;gap:8px}
 
+  /* ---------- lock + gate dialog ---------- */
+  .ghost.lock{display:flex;align-items:center;gap:7px}
+  .ghost.lock svg{width:13px;height:13px}
+  .ghost.lock.on{background:#1f3326;border-color:#3e7a52;color:#8ff0b0}
+  .ghost.lock.on #shackle{transform:translate(4px,-3px) rotate(14deg);transform-origin:12px 11px}
+  #changes:not([hidden]){background:#2b2340;border-color:#5b4a85;color:#d9c9ff}
+
+  #gatebox{
+    position:fixed;top:50%;left:50%;transform:translate(-50%,-48%) scale(.97);
+    width:388px;max-width:94vw;z-index:80;background:linear-gradient(170deg,#141c27,#0b1118 60%);
+    border:1px solid #2b3747;border-radius:16px;box-shadow:0 30px 90px #000d;padding:22px 22px 18px;
+    opacity:0;pointer-events:none;transition:opacity .16s, transform .16s cubic-bezier(.3,.9,.3,1)
+  }
+  #gatebox.open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
+  #gatebox .cx{
+    position:absolute;top:12px;right:12px;appearance:none;border:0;background:#1d2635;color:var(--tx2);
+    width:26px;height:26px;border-radius:7px;cursor:pointer;font-size:15px;line-height:1
+  }
+  #gatebox h3{font-size:15px;font-weight:620}
+  #gatebox p{font-size:11.5px;color:var(--tx2);margin-top:6px;line-height:1.5}
+  #gatebox form{display:flex;flex-direction:column;gap:11px;margin-top:17px}
+  #gatebox label{display:flex;flex-direction:column;gap:5px;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--tx3)}
+  #gatebox input{
+    background:var(--bg2);border:1px solid var(--line);border-radius:8px;color:var(--tx);
+    font:inherit;font-size:13px;padding:9px 11px;outline:none;letter-spacing:normal;text-transform:none
+  }
+  #gatebox input:focus{border-color:#2f7694;box-shadow:0 0 0 3px #2f769424}
+  .g-err{font-size:11.5px;color:#ff9b9b;min-height:14px}
+  .g-go{
+    appearance:none;border:0;background:#2f7694;color:#eaf8ff;font:inherit;font-size:13px;font-weight:600;
+    padding:10px;border-radius:8px;cursor:pointer
+  }
+  .g-go:hover{background:#3889aa}
+  .g-go[disabled]{opacity:.55;cursor:default}
+  .g-note{border-top:1px solid #1c2531;margin-top:16px;padding-top:13px;font-size:10.5px;color:var(--tx3) !important;line-height:1.55}
+  .g-note b{color:#e3c88a;font-weight:600}
+
+  /* ---------- inline editing ---------- */
+  .editpill{
+    appearance:none;border:1px solid #3e7a52;background:#1f3326;color:#8ff0b0;cursor:pointer;
+    font:inherit;font-size:11px;padding:5px 11px;border-radius:999px;display:inline-flex;align-items:center;gap:6px
+  }
+  .editpill:hover{background:#27402f}
+  .editpill[aria-pressed="true"]{background:#8ff0b0;border-color:#8ff0b0;color:#072112}
+  .who select{
+    background:var(--bg3);border:1px solid #3a4a60;border-radius:8px;color:var(--tx);font:inherit;
+    font-size:13px;padding:7px 9px;outline:none;max-width:180px;cursor:pointer
+  }
+  .who select:focus{border-color:#2f7694;box-shadow:0 0 0 3px #2f769424}
+  .who .newname{
+    background:var(--bg2);border:1px solid #3a4a60;border-radius:8px;color:var(--tx);font:inherit;
+    font-size:12.5px;padding:7px 9px;outline:none;max-width:180px;margin-top:6px
+  }
+  .bulk{
+    appearance:none;border:1px solid #5b4a85;background:#2b2340;color:#d9c9ff;cursor:pointer;font:inherit;
+    font-size:11px;padding:6px 11px;border-radius:7px;margin:12px 18px 2px;width:calc(100% - 36px)
+  }
+  .bulk:hover{background:#372c52}
+  .chg{display:flex;align-items:center;gap:10px;padding:10px 18px;border-bottom:1px solid #141b25}
+  .chg .txt{flex:1;min-width:0}
+  .chg .t1{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .chg .t2{font-size:10.5px;color:var(--tx3);margin-top:3px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .chg .t2 s{color:#8d6a6a}
+  .chg .t2 em{color:#8ff0b0;font-style:normal}
+  .chg .un{
+    appearance:none;border:1px solid var(--line);background:transparent;color:var(--tx3);cursor:pointer;
+    font:inherit;font-size:10.5px;padding:4px 9px;border-radius:6px;flex:none
+  }
+  .chg .un:hover{color:var(--tx);border-color:#3a4a60}
+  .expbar{display:flex;flex-direction:column;gap:8px;padding:16px 18px}
+  .expbar button{
+    appearance:none;border:1px solid var(--line);background:var(--bg3);color:var(--tx);cursor:pointer;
+    font:inherit;font-size:12px;padding:10px 12px;border-radius:8px;text-align:left;line-height:1.4
+  }
+  .expbar button:hover{border-color:#3a4a60;background:#222d3c}
+  .expbar button b{display:block;font-weight:600;margin-bottom:2px}
+  .expbar button span{font-size:10.5px;color:var(--tx3)}
+  .expbar .danger:hover{border-color:#7a3e3e;background:#331f1f}
+
   /* ---------- tooltip ---------- */
   #tip{
     position:fixed;z-index:90;pointer-events:none;opacity:0;transition:opacity .09s;
@@ -322,6 +401,11 @@
     <span class="count" id="shown"></span>
     <button class="ghost" id="t-moved" aria-pressed="false" title="Mark accounts whose SE changed FY26 &rarr; FY27">&#9651; New SE</button>
     <button class="ghost" id="clear">Reset</button>
+    <button class="ghost" id="changes" title="Review and export changes" hidden></button>
+    <button class="ghost lock" id="lock" title="Edit coverage">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path id="shackle" d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+      <span id="lock-tx">Locked</span>
+    </button>
   </div>
 </nav>
 
@@ -350,13 +434,41 @@
   <div class="card-ft" id="c-ft"></div>
 </div>
 
+<div id="gatebox" role="dialog" aria-hidden="true">
+  <button class="cx" id="g-close" aria-label="Close">&times;</button>
+  <h3 id="g-title">Unlock editing</h3>
+  <p id="g-sub"></p>
+  <form id="g-form" autocomplete="off">
+    <label id="g-name-l">Your name
+      <input id="g-name" type="text" autocomplete="off" placeholder="For the change log">
+    </label>
+    <label>Passphrase
+      <input id="g-pass" type="password" autocomplete="new-password">
+    </label>
+    <label id="g-confirm-l">Confirm
+      <input id="g-confirm" type="password" autocomplete="new-password">
+    </label>
+    <div class="g-err" id="g-err"></div>
+    <button type="submit" class="g-go" id="g-go">Unlock</button>
+  </form>
+  <p class="g-note">
+    <b>This hides the edit controls &mdash; it is not security.</b>
+    Anyone who opens this file in a text editor can read every account and strip the lock out.
+    It stops accidental edits by people you share the page with; it does not protect confidential data.
+  </p>
+</div>
+
 <div id="tip"><div class="a"></div><div class="b"></div></div>
 
-<script>const RAW = [{"name":"NC-ALAMANCE COUNTY SCHOOL DISTRICT","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Meagan Raviele","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"ALAMANCE"},{"name":"NC-ANSON COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Darius Carson","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"ANSON"},{"name":"NC-APPALACHIAN STATE UNIVERSITY","ae26":"Rosalie Simcoe","ae27":"Rosalie Simcoe","se26":"Dan Callahan","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"NC","county":"WATAUGA"},{"name":"NC-ASHEVILLE-BUNCOMBE TECHNICAL COMMUNITY COLLEGE","ae26":"Nick Schavone","ae27":"Rosalie Simcoe","se26":"Dan Callahan","se27":"Brandon Culler","sub":"Tertiary - 2 year institutions","state":"NC","county":"BUNCOMBE"},{"name":"NC-BLUE RIDGE COMMUNITY COLLEGE","ae26":"Nick Schavone","ae27":"Rosalie Simcoe","se26":"Dan Callahan","se27":"Brandon Culler","sub":"Tertiary - 2 year institutions","state":"NC","county":"HENDERSON"},{"name":"NC-BRUNSWICK COUNTY SCHOOL DISTRICT","ae26":"Jim McCormick","ae27":"Jim McCormick","se26":"Dan Callahan","se27":"Omar Capacetti","sub":"Primary Secondary","state":"NC","county":"BRUNSWICK"},{"name":"NC-BUNCOMBE COUNTY SCHOOL DISTRICT","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Dan Callahan","se27":"Brandon Culler","sub":"Primary Secondary","state":"NC","county":"BUNCOMBE"},{"name":"NC-CAMPBELL UNIVERSITY","ae26":"Nick Schavone","ae27":"Jim McCormick","se26":"Kurt Chapman","se27":"Eli Gelber","sub":"Tertiary - 4 year institutions","state":"NC","county":"HARNETT"},{"name":"NC-CATAWBA COUNTY SCHOOL DISTRICT","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Darius Carson","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"CATAWBA"},{"name":"NC-CENTRAL PIEDMONT COMMUNITY COLLEGE","ae26":"Rosalie Simcoe","ae27":"Rosalie Simcoe","se26":"Dan Callahan","se27":"Brandon Culler","sub":"Tertiary - 2 year institutions","state":"NC","county":"MECKLENBURG"},{"name":"NC-CHAPEL HILL CARRBORO CITY SCHOOLS","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Meagan Raviele","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"ORANGE"},{"name":"NC-CHARLOTTE MECKLENBURG SCHOOLS","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Darius Carson","se27":"Brandon Culler","sub":"Primary Secondary","state":"NC","county":"MECKLENBURG"},{"name":"NC-CLEVELAND COMMUNITY COLLEGE","ae26":"Rosalie Simcoe","ae27":"Rosalie Simcoe","se26":"Darius Carson","se27":"Brandon Culler","sub":"Tertiary - 2 year institutions","state":"NC","county":"CLEVELAND"},{"name":"NC-CLEVELAND COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Darius Carson","se27":"Brandon Culler","sub":"Primary Secondary","state":"NC","county":"CLEVELAND"},{"name":"NC-COASTAL CAROLINA COMMUNITY COLLEGE","ae26":"Jim McCormick","ae27":"Jim McCormick","se26":"Dan Callahan","se27":"Meagan Raviele","sub":"Tertiary - 2 year institutions","state":"NC","county":"ONSLOW"},{"name":"NC-CUMBERLAND COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Eli Gelber","se27":"Eli Gelber","sub":"Primary Secondary","state":"NC","county":"CUMBERLAND"},{"name":"NC-DAVIDSON COUNTY SCHOOL DISTRICT","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Meagan Raviele","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"DAVIDSON"},{"name":"NC-DIOCESE OF RALEIGH","ae26":"Caitlin K Long","ae27":"Faizal Hamdoon","se26":"Meagan Raviele","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"WAKE"},{"name":"NC-DUKE UNIVERSITY","ae26":"Kelly Robbins Reeves","ae27":"Kelly Robbins Reeves","se26":"Mike Curtis","se27":"Mike Curtis","sub":"Tertiary - 4 year institutions","state":"NC","county":"DURHAM"},{"name":"NC-DUKE UNIVERSITY HEALTH SYSTEM","ae26":"Kelly Robbins Reeves","ae27":"Kelly Robbins Reeves","se26":"Mike Curtis","se27":"Mike Curtis","sub":"Healthcare","state":"NC","county":"DURHAM"},{"name":"NC-DURHAM COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Meagan Raviele","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"DURHAM"},{"name":"NC-EAST CAROLINA UNIVERSITY","ae26":"Nick Schavone","ae27":"Rosalie Simcoe","se26":"Dan Callahan","se27":"Kurt Chapman","sub":"Tertiary - 4 year institutions","state":"NC","county":"PITT"},{"name":"NC-ELIZABETH CITY STATE UNIVERSITY","ae26":"Jim McCormick","ae27":"Jim McCormick","se26":"Dan Callahan","se27":"Meagan Raviele","sub":"Tertiary - 4 year institutions","state":"NC","county":"PASQUOTANK"},{"name":"NC-ELON UNIVERSITY","ae26":"Kelly Robbins Reeves","ae27":"Rosalie Simcoe","se26":"Meagan Raviele","se27":"Meagan Raviele","sub":"Tertiary - 4 year institutions","state":"NC","county":"ALAMANCE"},{"name":"NC-FAYETTEVILLE STATE UNIVERSITY","ae26":"Caitlin K Long","ae27":"Jim McCormick","se26":"Eli Gelber","se27":"Eli Gelber","sub":"Tertiary - 4 year institutions","state":"NC","county":"CUMBERLAND"},{"name":"NC-FORSYTH TECHNICAL COMMUNITY COLLEGE","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Meagan Raviele","se27":"Brandon Culler","sub":"Tertiary - 2 year institutions","state":"NC","county":"FORSYTH"},{"name":"NC-FRANKLIN COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Meagan Raviele","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"FRANKLIN"},{"name":"NC-GASTON COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Darius Carson","se27":"Brandon Culler","sub":"Primary Secondary","state":"NC","county":"GASTON"},{"name":"NC-GRANVILLE COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Meagan Raviele","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"GRANVILLE"},{"name":"NC-GUILFORD COLLEGE","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Darius Carson","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"NC","county":"GUILFORD"},{"name":"NC-GUILFORD COUNTY SCHOOL DISTRICT","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Eli Gelber","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"GUILFORD"},{"name":"NC-GUILFORD TECHNICAL COMMUNITY COLLEGE","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Darius Carson","se27":"Brandon Culler","sub":"Tertiary - 2 year institutions","state":"NC","county":"GUILFORD"},{"name":"NC-HENDERSON COUNTY SCHOOL DISTRICT","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Darius Carson","se27":"Brandon Culler","sub":"Primary Secondary","state":"NC","county":"HENDERSON"},{"name":"NC-HIGH POINT UNIVERSITY","ae26":"Kelly Robbins Reeves","ae27":"Rosalie Simcoe","se26":"Eli Gelber","se27":"Eli Gelber","sub":"Tertiary - 4 year institutions","state":"NC","county":"GUILFORD"},{"name":"NC-JACKSON COUNTY SCHOOL DISTRICT","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Meagan Raviele","se27":"Brandon Culler","sub":"Primary Secondary","state":"NC","county":"JACKSON"},{"name":"NC-JOHNSON C. SMITH UNIVERSITY","ae26":"Rosalie Simcoe","ae27":"Rosalie Simcoe","se26":"Darius Carson","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"NC","county":"MECKLENBURG"},{"name":"NC-JOHNSTON COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Meagan Raviele","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"JOHNSTON"},{"name":"NC-LENOIR COUNTY SCHOOL DISTRICT","ae26":"Jim McCormick","ae27":"Caitlin K Long","se26":"Mike Curtis","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"LENOIR"},{"name":"NC-LINCOLN COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Darius Carson","se27":"Brandon Culler","sub":"Primary Secondary","state":"NC","county":"LINCOLN"},{"name":"NC-MACON COUNTY SCHOOL DISTRICT","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Darius Carson","se27":"Brandon Culler","sub":"Primary Secondary","state":"NC","county":"MACON"},{"name":"NC-MCNC RESEARCH AND DEVELOPMENT INSTITUTE","ae26":"STATE NC TEAM","ae27":"Kelly Robbins Reeves","se26":"Mike Curtis","se27":"Mike Curtis","sub":"Tertiary - 4 year institutions","state":"NC","county":"DURHAM"},{"name":"NC-MOORESVILLE GRADED PUBLIC SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Darius Carson","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"IREDELL"},{"name":"NC-NASH COMMUNITY COLLEGE","ae26":"Nick Schavone","ae27":"Jim McCormick","se26":"Kurt Chapman","se27":"Meagan Raviele","sub":"Tertiary - 2 year institutions","state":"NC","county":"NASH"},{"name":"NC-NASH COUNTY PUBLIC SCHOOLS","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Kurt Chapman","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"NASH"},{"name":"NC-NC A&T","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Darius Carson","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"NC","county":"GUILFORD"},{"name":"NC-NEW HANOVER COUNTY SCHOOL DISTRICT","ae26":"Jim McCormick","ae27":"Jim McCormick","se26":"Dan Callahan","se27":"Omar Capacetti","sub":"Primary Secondary","state":"NC","county":"NEW HANOVER"},{"name":"NC-NORTH CAROLINA CENTRAL UNIVERSITY","ae26":"Nick Schavone","ae27":"Rosalie Simcoe","se26":"Dan Callahan","se27":"Eli Gelber","sub":"Tertiary - 4 year institutions","state":"NC","county":"DURHAM"},{"name":"NC-NORTH CAROLINA COMMUNITY COLLEGE SYSTEM","ae26":"Nick Schavone","ae27":"Rosalie Simcoe","se26":"Dan Callahan","se27":"Kurt Chapman","sub":"Tertiary - 2 year institutions","state":"NC","county":"WAKE"},{"name":"NC-NORTH CAROLINA SCHOOL OF THE ARTS","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Eli Gelber","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"NC","county":"FORSYTH"},{"name":"NC-NORTH CAROLINA STATE UNIVERSITY","ae26":"Jim McCormick","ae27":"Jim McCormick","se26":"Mike Curtis","se27":"Mike Curtis","sub":"Tertiary - 4 year institutions","state":"NC","county":"WAKE"},{"name":"NC-ONSLOW COUNTY SCHOOL DISTRICT","ae26":"Jim McCormick","ae27":"Jim McCormick","se26":"Dan Callahan","se27":"Omar Capacetti","sub":"Primary Secondary","state":"NC","county":"ONSLOW"},{"name":"NC-ORANGE COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Eli Gelber","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"ORANGE"},{"name":"NC-PASQUOTANK COUNTY SCHOOL DISTRICT","ae26":"Jim McCormick","ae27":"Caitlin K Long","se26":"Dan Callahan","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"PASQUOTANK"},{"name":"NC-PFEIFFER UNIVERSITY","ae26":"Rosalie Simcoe","ae27":"Rosalie Simcoe","se26":"Darius Carson","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"NC","county":"STANLY"},{"name":"NC-PITT COMMUNITY COLLEGE","ae26":"Jim McCormick","ae27":"Jim McCormick","se26":"Mike Curtis","se27":"Meagan Raviele","sub":"Tertiary - 2 year institutions","state":"NC","county":"PITT"},{"name":"NC-PITT COUNTY SCHOOL DISTRICT","ae26":"Jim McCormick","ae27":"Caitlin K Long","se26":"Mike Curtis","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"PITT"},{"name":"NC-RANDOLPH COMMUNITY COLLEGE","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Eli Gelber","se27":"Brandon Culler","sub":"Tertiary - 2 year institutions","state":"NC","county":"RANDOLPH"},{"name":"NC-ROBESON COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Darius Carson","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"ROBESON"},{"name":"NC-ROWAN COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Darius Carson","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"ROWAN"},{"name":"NC-SALEM ACADEMY AND COLLEGE","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Darius Carson","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"NC","county":"FORSYTH"},{"name":"NC-SHAW UNIVERSITY","ae26":"Nick Schavone","ae27":"Rosalie Simcoe","se26":"Dan Callahan","se27":"Meagan Raviele","sub":"Tertiary - 4 year institutions","state":"NC","county":"WAKE"},{"name":"NC-SOUTH PIEDMONT COMMUNITY COLLEGE","ae26":"Rosalie Simcoe","ae27":"Rosalie Simcoe","se26":"Jacob Gray","se27":"Brandon Culler","sub":"Tertiary - 2 year institutions","state":"NC","county":"ANSON"},{"name":"NC-STANLY COMMUNITY COLLEGE","ae26":"Rosalie Simcoe","ae27":"Rosalie Simcoe","se26":"Darius Carson","se27":"Brandon Culler","sub":"Tertiary - 2 year institutions","state":"NC","county":"STANLY"},{"name":"NC-SURRY COMMUNITY COLLEGE","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Darius Carson","se27":"Brandon Culler","sub":"Tertiary - 2 year institutions","state":"NC","county":"SURRY"},{"name":"NC-UNC ASHEVILLE","ae26":"Nick Schavone","ae27":"Rosalie Simcoe","se26":"Dan Callahan","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"NC","county":"BUNCOMBE"},{"name":"NC-UNC CHAPEL HILL","ae26":"Jim McCormick","ae27":"Jim McCormick","se26":"Eli Gelber","se27":"Eli Gelber","sub":"Tertiary - 4 year institutions","state":"NC","county":"ORANGE"},{"name":"NC-UNC CHARLOTTE","ae26":"Rosalie Simcoe","ae27":"Rosalie Simcoe","se26":"Darius Carson","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"NC","county":"MECKLENBURG"},{"name":"NC-UNC GREENSBORO","ae26":"Kelly Robbins Reeves","ae27":"Faizal Hamdoon","se26":"Mike Curtis","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"NC","county":"GUILFORD"},{"name":"NC-UNC WILMINGTON","ae26":"Nick Schavone","ae27":"Jim McCormick","se26":"Dan Callahan","se27":"Kurt Chapman","sub":"Tertiary - 4 year institutions","state":"NC","county":"NEW HANOVER"},{"name":"NC-UNION COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Darius Carson","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"UNION"},{"name":"NC-UNIVERSITY OF NORTH CAROLINA AT PEMBROKE","ae26":"Jim McCormick","ae27":"Jim McCormick","se26":"Eli Gelber","se27":"Eli Gelber","sub":"Tertiary - 4 year institutions","state":"NC","county":"ROBESON"},{"name":"NC-UNIVERSITY OF NORTH CAROLINA HOSPITALS","ae26":"Amanda Bonner","ae27":"Amanda Bonner","se26":"Kurt Chapman","se27":"Kurt Chapman","sub":"Healthcare","state":"NC","county":"ORANGE"},{"name":"NC-UNIVERSITY OF NORTH CAROLINA SYSTEM GENERAL ADMINISTRATION","ae26":"Jim McCormick","ae27":"Jim McCormick","se26":"Mike Curtis","se27":"Mike Curtis","sub":"Tertiary - 4 year institutions","state":"NC","county":"ORANGE"},{"name":"NC-VANCE COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Darius Carson","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"VANCE"},{"name":"NC-WAKE COUNTY SCHOOL DISTRICT","ae26":"Amanda Bonner","ae27":"Amanda Bonner","se26":"Kurt Chapman","se27":"Kurt Chapman","sub":"Primary Secondary","state":"NC","county":"WAKE"},{"name":"NC-WAKE FOREST UNIVERSITY","ae26":"Jim McCormick","ae27":"Jim McCormick","se26":"Eli Gelber","se27":"Eli Gelber","sub":"Tertiary - 4 year institutions","state":"NC","county":"FORSYTH"},{"name":"NC-WAKE TECHNICAL COMMUNITY COLLEGE","ae26":"Amanda Bonner","ae27":"Amanda Bonner","se26":"Dan Callahan","se27":"Kurt Chapman","sub":"Tertiary - 2 year institutions","state":"NC","county":"WAKE"},{"name":"NC-WAKEMED","ae26":"STATE NC TEAM","ae27":"Amanda Bonner","se26":"Kurt Chapman","se27":"Kurt Chapman","sub":"Healthcare","state":"NC","county":"WAKE"},{"name":"NC-WATAUGA COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Darius Carson","se27":"Brandon Culler","sub":"Primary Secondary","state":"NC","county":"WATAUGA"},{"name":"NC-WAYNE COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Meagan Raviele","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"WAYNE"},{"name":"NC-WESTERN CAROLINA UNIVERSITY","ae26":"Rosalie Simcoe","ae27":"Rosalie Simcoe","se26":"Dan Callahan","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"NC","county":"JACKSON"},{"name":"NC-WILKES COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Darius Carson","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"WILKES"},{"name":"NC-WINSTON SALEM FORSYTH COUNTY SCHOOLS","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Darius Carson","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"FORSYTH"},{"name":"NC-WINSTON-SALEM STATE UNIVERSITY","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Eli Gelber","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"NC","county":"FORSYTH"},{"name":"NC-YADKIN COUNTY SCHOOL DISTRICT","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Eli Gelber","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"YADKIN"},{"name":"SC-AIKEN SCHOOL DISTRICT","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"AIKEN"},{"name":"SC-AIKEN TECHNICAL COLLEGE","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Tertiary - 2 year institutions","state":"SC","county":"AIKEN"},{"name":"SC-ANDERSON SCHOOL DISTRICT 1","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"GREENVILLE"},{"name":"SC-ANDERSON SCHOOL DISTRICT 5","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"ANDERSON"},{"name":"SC-BERKELEY SCHOOL DISTRICT","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"BERKELEY"},{"name":"SC-CENTRAL CAROLINA TECHNICAL COLLEGE","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams","se27":"Omar Capacetti","sub":"Tertiary - 2 year institutions","state":"SC","county":"SUMTER"},{"name":"SC-CHARLESTON SCHOOL DISTRICT","ae26":"Chad Robert Martens","ae27":"Windy Key","se26":"Tom Geny","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"CHARLESTON"},{"name":"SC-CHESTER SCHOOL DISTRICT","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"CHESTER"},{"name":"SC-CHESTERFIELD SCHOOL DISTRICT","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"CHESTERFIELD"},{"name":"SC-CLARENDON SCHOOL DISTRICT 2","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"CLARENDON"},{"name":"SC-CLEMSON UNIVERSITY","ae26":"Abed Christopher Qadura","ae27":"Windy Key","se26":"Brad Landrum","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"SC","county":"PICKENS"},{"name":"SC-CLOVER SCHOOL DISTRICT 2","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"YORK"},{"name":"SC-COASTAL CAROLINA UNIVERSITY","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Tertiary - 4 year institutions","state":"SC","county":"HORRY"},{"name":"SC-COLLEGE OF CHARLESTON","ae26":"Windy Key","ae27":"Windy Key","se26":"Josh Williams","se27":"Joshua Williams","sub":"Tertiary - 4 year institutions","state":"SC","county":"CHARLESTON"},{"name":"SC-DILLON SCHOOL DISTRICT 2","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"DILLON"},{"name":"SC-DORCHESTER SCHOOL DISTRICT 2","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"DORCHESTER"},{"name":"SC-FLORENCE-DARLINGTON TECHNICAL COLLEGE","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams","se27":"Omar Capacetti","sub":"Tertiary - 2 year institutions","state":"SC","county":"FLORENCE"},{"name":"SC-FURMAN UNIVERSITY","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Tertiary - 4 year institutions","state":"SC","county":"GREENVILLE"},{"name":"SC-GEORGETOWN SCHOOL DISTRICT","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"GEORGETOWN"},{"name":"SC-GREENVILLE COUNTY SCHOOL DISTRICT","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"GREENVILLE"},{"name":"SC-GREENVILLE TECHNICAL COLLEGE","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Tertiary - 2 year institutions","state":"SC","county":"GREENVILLE"},{"name":"SC-GREENWOOD SCHOOL DISTRICT 50","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"GREENWOOD"},{"name":"SC-HORRY SCHOOL DISTRICT","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"HORRY"},{"name":"SC-HORRY-GEORGETOWN TECHNICAL COLLEGE","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams","se27":"Omar Capacetti","sub":"Tertiary - 2 year institutions","state":"SC","county":"HORRY"},{"name":"SC-KERSHAW COUNTY SCHOOL DISTRICT","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"KERSHAW"},{"name":"SC-LANCASTER SCHOOL DISTRICT","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"LANCASTER"},{"name":"SC-LANDER UNIVERSITY","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Tertiary - 4 year institutions","state":"SC","county":"GREENWOOD"},{"name":"SC-LEXINGTON SCHOOL DISTRICT 1","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"LEXINGTON"},{"name":"SC-LEXINGTON SCHOOL DISTRICT 5","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"RICHLAND"},{"name":"SC-MIDLANDS TECHNICAL COLLEGE","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Tertiary - 2 year institutions","state":"SC","county":"RICHLAND"},{"name":"SC-NEWBERRY SCHOOL DISTRICT","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"NEWBERRY"},{"name":"SC-ORANGEBURG CONSOLIDATED SCHOOL DISTRICT 5","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"ORANGEBURG"},{"name":"SC-ORANGEBURG SCHOOL DISTRICT 3","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"ORANGEBURG"},{"name":"SC-ORANGEBURG SCHOOL DISTRICT 4","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"ORANGEBURG"},{"name":"SC-PICKENS COUNTY SCHOOL DISTRICT","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"PICKENS"},{"name":"SC-PIEDMONT TECHNICAL COLLEGE","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Tertiary - 2 year institutions","state":"SC","county":"GREENWOOD"},{"name":"SC-RICHLAND SCHOOL DISTRICT 1","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"RICHLAND"},{"name":"SC-RICHLAND SCHOOL DISTRICT 2","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"RICHLAND"},{"name":"SC-ROCK HILL SCHOOL DISTRICT 3","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"YORK"},{"name":"SC-SPARTANBURG COMMUNITY COLLEGE","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Tertiary - 2 year institutions","state":"SC","county":"SPARTANBURG"},{"name":"SC-SPARTANBURG SCHOOL DISTRICT 1","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"SPARTANBURG"},{"name":"SC-SPARTANBURG SCHOOL DISTRICT 7","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"SPARTANBURG"},{"name":"SC-SUMTER SCHOOL DISTRICT 17","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"SUMTER"},{"name":"SC-THE CITADEL","ae26":"Windy Key","ae27":"Windy Key","se26":"Josh Williams","se27":"Joshua Williams","sub":"Tertiary - 4 year institutions","state":"SC","county":"CHARLESTON"},{"name":"SC-TRI COUNTY TECHNICAL COLLEGE","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Tertiary - 2 year institutions","state":"SC","county":"ANDERSON"},{"name":"SC-TRIDENT TECHNICAL COLLEGE","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams","se27":"Omar Capacetti","sub":"Tertiary - 2 year institutions","state":"SC","county":"CHARLESTON"},{"name":"SC-USC AIKEN","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"SC","county":"AIKEN"},{"name":"SC-USC BEAUFORT","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"SC","county":"BEAUFORT"},{"name":"SC-USC COLUMBIA","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"SC","county":"RICHLAND"},{"name":"SC-USC SALKEHATCHIE","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"SC","county":"COLLETON"},{"name":"SC-USC SUMTER","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"SC","county":"SUMTER"},{"name":"SC-USC UNION","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"SC","county":"RICHLAND"},{"name":"SC-USC UPSTATE","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"SC","county":"SPARTANBURG"},{"name":"SC-WILLIAMSBURG SCHOOL DISTRICT","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"WILLIAMSBURG"},{"name":"SC-WILLIAMSBURG TECHNICAL COLLEGE","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams","se27":"Omar Capacetti","sub":"Tertiary - 2 year institutions","state":"SC","county":"WILLIAMSBURG"},{"name":"SC-WOFFORD COLLEGE","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Tertiary - 4 year institutions","state":"SC","county":"SPARTANBURG"},{"name":"SC-YORK TECHNICAL COLLEGE","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams","se27":"Omar Capacetti","sub":"Tertiary - 2 year institutions","state":"SC","county":"YORK"}];</script>
+<script id="seed">const RAW = [{"name":"NC-ALAMANCE COUNTY SCHOOL DISTRICT","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Meagan Raviele","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"ALAMANCE"},{"name":"NC-ANSON COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Darius Carson","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"ANSON"},{"name":"NC-APPALACHIAN STATE UNIVERSITY","ae26":"Rosalie Simcoe","ae27":"Rosalie Simcoe","se26":"Dan Callahan","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"NC","county":"WATAUGA"},{"name":"NC-ASHEVILLE-BUNCOMBE TECHNICAL COMMUNITY COLLEGE","ae26":"Nick Schavone","ae27":"Rosalie Simcoe","se26":"Dan Callahan","se27":"Brandon Culler","sub":"Tertiary - 2 year institutions","state":"NC","county":"BUNCOMBE"},{"name":"NC-BLUE RIDGE COMMUNITY COLLEGE","ae26":"Nick Schavone","ae27":"Rosalie Simcoe","se26":"Dan Callahan","se27":"Brandon Culler","sub":"Tertiary - 2 year institutions","state":"NC","county":"HENDERSON"},{"name":"NC-BRUNSWICK COUNTY SCHOOL DISTRICT","ae26":"Jim McCormick","ae27":"Jim McCormick","se26":"Dan Callahan","se27":"Omar Capacetti","sub":"Primary Secondary","state":"NC","county":"BRUNSWICK"},{"name":"NC-BUNCOMBE COUNTY SCHOOL DISTRICT","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Dan Callahan","se27":"Brandon Culler","sub":"Primary Secondary","state":"NC","county":"BUNCOMBE"},{"name":"NC-CAMPBELL UNIVERSITY","ae26":"Nick Schavone","ae27":"Jim McCormick","se26":"Kurt Chapman","se27":"Eli Gelber","sub":"Tertiary - 4 year institutions","state":"NC","county":"HARNETT"},{"name":"NC-CATAWBA COUNTY SCHOOL DISTRICT","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Darius Carson","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"CATAWBA"},{"name":"NC-CENTRAL PIEDMONT COMMUNITY COLLEGE","ae26":"Rosalie Simcoe","ae27":"Rosalie Simcoe","se26":"Dan Callahan","se27":"Brandon Culler","sub":"Tertiary - 2 year institutions","state":"NC","county":"MECKLENBURG"},{"name":"NC-CHAPEL HILL CARRBORO CITY SCHOOLS","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Meagan Raviele","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"ORANGE"},{"name":"NC-CHARLOTTE MECKLENBURG SCHOOLS","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Darius Carson","se27":"Brandon Culler","sub":"Primary Secondary","state":"NC","county":"MECKLENBURG"},{"name":"NC-CLEVELAND COMMUNITY COLLEGE","ae26":"Rosalie Simcoe","ae27":"Rosalie Simcoe","se26":"Darius Carson","se27":"Brandon Culler","sub":"Tertiary - 2 year institutions","state":"NC","county":"CLEVELAND"},{"name":"NC-CLEVELAND COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Darius Carson","se27":"Brandon Culler","sub":"Primary Secondary","state":"NC","county":"CLEVELAND"},{"name":"NC-COASTAL CAROLINA COMMUNITY COLLEGE","ae26":"Jim McCormick","ae27":"Jim McCormick","se26":"Dan Callahan","se27":"Meagan Raviele","sub":"Tertiary - 2 year institutions","state":"NC","county":"ONSLOW"},{"name":"NC-CUMBERLAND COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Eli Gelber","se27":"Eli Gelber","sub":"Primary Secondary","state":"NC","county":"CUMBERLAND"},{"name":"NC-DAVIDSON COUNTY SCHOOL DISTRICT","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Meagan Raviele","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"DAVIDSON"},{"name":"NC-DIOCESE OF RALEIGH","ae26":"Caitlin K Long","ae27":"Faizal Hamdoon","se26":"Meagan Raviele","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"WAKE"},{"name":"NC-DUKE UNIVERSITY","ae26":"Kelly Robbins Reeves","ae27":"Kelly Robbins Reeves","se26":"Mike Curtis","se27":"Mike Curtis","sub":"Tertiary - 4 year institutions","state":"NC","county":"DURHAM"},{"name":"NC-DUKE UNIVERSITY HEALTH SYSTEM","ae26":"Kelly Robbins Reeves","ae27":"Kelly Robbins Reeves","se26":"Mike Curtis","se27":"Mike Curtis","sub":"Healthcare","state":"NC","county":"DURHAM"},{"name":"NC-DURHAM COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Meagan Raviele","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"DURHAM"},{"name":"NC-EAST CAROLINA UNIVERSITY","ae26":"Nick Schavone","ae27":"Rosalie Simcoe","se26":"Dan Callahan","se27":"Kurt Chapman","sub":"Tertiary - 4 year institutions","state":"NC","county":"PITT"},{"name":"NC-ELIZABETH CITY STATE UNIVERSITY","ae26":"Jim McCormick","ae27":"Jim McCormick","se26":"Dan Callahan","se27":"Meagan Raviele","sub":"Tertiary - 4 year institutions","state":"NC","county":"PASQUOTANK"},{"name":"NC-ELON UNIVERSITY","ae26":"Kelly Robbins Reeves","ae27":"Rosalie Simcoe","se26":"Meagan Raviele","se27":"Meagan Raviele","sub":"Tertiary - 4 year institutions","state":"NC","county":"ALAMANCE"},{"name":"NC-FAYETTEVILLE STATE UNIVERSITY","ae26":"Caitlin K Long","ae27":"Jim McCormick","se26":"Eli Gelber","se27":"Eli Gelber","sub":"Tertiary - 4 year institutions","state":"NC","county":"CUMBERLAND"},{"name":"NC-FORSYTH TECHNICAL COMMUNITY COLLEGE","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Meagan Raviele","se27":"Brandon Culler","sub":"Tertiary - 2 year institutions","state":"NC","county":"FORSYTH"},{"name":"NC-FRANKLIN COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Meagan Raviele","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"FRANKLIN"},{"name":"NC-GASTON COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Darius Carson","se27":"Brandon Culler","sub":"Primary Secondary","state":"NC","county":"GASTON"},{"name":"NC-GRANVILLE COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Meagan Raviele","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"GRANVILLE"},{"name":"NC-GUILFORD COLLEGE","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Darius Carson","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"NC","county":"GUILFORD"},{"name":"NC-GUILFORD COUNTY SCHOOL DISTRICT","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Eli Gelber","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"GUILFORD"},{"name":"NC-GUILFORD TECHNICAL COMMUNITY COLLEGE","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Darius Carson","se27":"Brandon Culler","sub":"Tertiary - 2 year institutions","state":"NC","county":"GUILFORD"},{"name":"NC-HENDERSON COUNTY SCHOOL DISTRICT","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Darius Carson","se27":"Brandon Culler","sub":"Primary Secondary","state":"NC","county":"HENDERSON"},{"name":"NC-HIGH POINT UNIVERSITY","ae26":"Kelly Robbins Reeves","ae27":"Rosalie Simcoe","se26":"Eli Gelber","se27":"Eli Gelber","sub":"Tertiary - 4 year institutions","state":"NC","county":"GUILFORD"},{"name":"NC-JACKSON COUNTY SCHOOL DISTRICT","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Meagan Raviele","se27":"Brandon Culler","sub":"Primary Secondary","state":"NC","county":"JACKSON"},{"name":"NC-JOHNSON C. SMITH UNIVERSITY","ae26":"Rosalie Simcoe","ae27":"Rosalie Simcoe","se26":"Darius Carson","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"NC","county":"MECKLENBURG"},{"name":"NC-JOHNSTON COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Meagan Raviele","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"JOHNSTON"},{"name":"NC-LENOIR COUNTY SCHOOL DISTRICT","ae26":"Jim McCormick","ae27":"Caitlin K Long","se26":"Mike Curtis","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"LENOIR"},{"name":"NC-LINCOLN COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Darius Carson","se27":"Brandon Culler","sub":"Primary Secondary","state":"NC","county":"LINCOLN"},{"name":"NC-MACON COUNTY SCHOOL DISTRICT","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Darius Carson","se27":"Brandon Culler","sub":"Primary Secondary","state":"NC","county":"MACON"},{"name":"NC-MCNC RESEARCH AND DEVELOPMENT INSTITUTE","ae26":"STATE NC TEAM","ae27":"Kelly Robbins Reeves","se26":"Mike Curtis","se27":"Mike Curtis","sub":"Tertiary - 4 year institutions","state":"NC","county":"DURHAM"},{"name":"NC-MOORESVILLE GRADED PUBLIC SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Darius Carson","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"IREDELL"},{"name":"NC-NASH COMMUNITY COLLEGE","ae26":"Nick Schavone","ae27":"Jim McCormick","se26":"Kurt Chapman","se27":"Meagan Raviele","sub":"Tertiary - 2 year institutions","state":"NC","county":"NASH"},{"name":"NC-NASH COUNTY PUBLIC SCHOOLS","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Kurt Chapman","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"NASH"},{"name":"NC-NC A&T","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Darius Carson","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"NC","county":"GUILFORD"},{"name":"NC-NEW HANOVER COUNTY SCHOOL DISTRICT","ae26":"Jim McCormick","ae27":"Jim McCormick","se26":"Dan Callahan","se27":"Omar Capacetti","sub":"Primary Secondary","state":"NC","county":"NEW HANOVER"},{"name":"NC-NORTH CAROLINA CENTRAL UNIVERSITY","ae26":"Nick Schavone","ae27":"Rosalie Simcoe","se26":"Dan Callahan","se27":"Eli Gelber","sub":"Tertiary - 4 year institutions","state":"NC","county":"DURHAM"},{"name":"NC-NORTH CAROLINA COMMUNITY COLLEGE SYSTEM","ae26":"Nick Schavone","ae27":"Rosalie Simcoe","se26":"Dan Callahan","se27":"Kurt Chapman","sub":"Tertiary - 2 year institutions","state":"NC","county":"WAKE"},{"name":"NC-NORTH CAROLINA SCHOOL OF THE ARTS","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Eli Gelber","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"NC","county":"FORSYTH"},{"name":"NC-NORTH CAROLINA STATE UNIVERSITY","ae26":"Jim McCormick","ae27":"Jim McCormick","se26":"Mike Curtis","se27":"Mike Curtis","sub":"Tertiary - 4 year institutions","state":"NC","county":"WAKE"},{"name":"NC-ONSLOW COUNTY SCHOOL DISTRICT","ae26":"Jim McCormick","ae27":"Jim McCormick","se26":"Dan Callahan","se27":"Omar Capacetti","sub":"Primary Secondary","state":"NC","county":"ONSLOW"},{"name":"NC-ORANGE COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Eli Gelber","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"ORANGE"},{"name":"NC-PASQUOTANK COUNTY SCHOOL DISTRICT","ae26":"Jim McCormick","ae27":"Caitlin K Long","se26":"Dan Callahan","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"PASQUOTANK"},{"name":"NC-PFEIFFER UNIVERSITY","ae26":"Rosalie Simcoe","ae27":"Rosalie Simcoe","se26":"Darius Carson","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"NC","county":"STANLY"},{"name":"NC-PITT COMMUNITY COLLEGE","ae26":"Jim McCormick","ae27":"Jim McCormick","se26":"Mike Curtis","se27":"Meagan Raviele","sub":"Tertiary - 2 year institutions","state":"NC","county":"PITT"},{"name":"NC-PITT COUNTY SCHOOL DISTRICT","ae26":"Jim McCormick","ae27":"Caitlin K Long","se26":"Mike Curtis","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"PITT"},{"name":"NC-RANDOLPH COMMUNITY COLLEGE","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Eli Gelber","se27":"Brandon Culler","sub":"Tertiary - 2 year institutions","state":"NC","county":"RANDOLPH"},{"name":"NC-ROBESON COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Darius Carson","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"ROBESON"},{"name":"NC-ROWAN COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Darius Carson","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"ROWAN"},{"name":"NC-SALEM ACADEMY AND COLLEGE","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Darius Carson","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"NC","county":"FORSYTH"},{"name":"NC-SHAW UNIVERSITY","ae26":"Nick Schavone","ae27":"Rosalie Simcoe","se26":"Dan Callahan","se27":"Meagan Raviele","sub":"Tertiary - 4 year institutions","state":"NC","county":"WAKE"},{"name":"NC-SOUTH PIEDMONT COMMUNITY COLLEGE","ae26":"Rosalie Simcoe","ae27":"Rosalie Simcoe","se26":"Jacob Gray","se27":"Brandon Culler","sub":"Tertiary - 2 year institutions","state":"NC","county":"ANSON"},{"name":"NC-STANLY COMMUNITY COLLEGE","ae26":"Rosalie Simcoe","ae27":"Rosalie Simcoe","se26":"Darius Carson","se27":"Brandon Culler","sub":"Tertiary - 2 year institutions","state":"NC","county":"STANLY"},{"name":"NC-SURRY COMMUNITY COLLEGE","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Darius Carson","se27":"Brandon Culler","sub":"Tertiary - 2 year institutions","state":"NC","county":"SURRY"},{"name":"NC-UNC ASHEVILLE","ae26":"Nick Schavone","ae27":"Rosalie Simcoe","se26":"Dan Callahan","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"NC","county":"BUNCOMBE"},{"name":"NC-UNC CHAPEL HILL","ae26":"Jim McCormick","ae27":"Jim McCormick","se26":"Eli Gelber","se27":"Eli Gelber","sub":"Tertiary - 4 year institutions","state":"NC","county":"ORANGE"},{"name":"NC-UNC CHARLOTTE","ae26":"Rosalie Simcoe","ae27":"Rosalie Simcoe","se26":"Darius Carson","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"NC","county":"MECKLENBURG"},{"name":"NC-UNC GREENSBORO","ae26":"Kelly Robbins Reeves","ae27":"Faizal Hamdoon","se26":"Mike Curtis","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"NC","county":"GUILFORD"},{"name":"NC-UNC WILMINGTON","ae26":"Nick Schavone","ae27":"Jim McCormick","se26":"Dan Callahan","se27":"Kurt Chapman","sub":"Tertiary - 4 year institutions","state":"NC","county":"NEW HANOVER"},{"name":"NC-UNION COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Darius Carson","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"UNION"},{"name":"NC-UNIVERSITY OF NORTH CAROLINA AT PEMBROKE","ae26":"Jim McCormick","ae27":"Jim McCormick","se26":"Eli Gelber","se27":"Eli Gelber","sub":"Tertiary - 4 year institutions","state":"NC","county":"ROBESON"},{"name":"NC-UNIVERSITY OF NORTH CAROLINA HOSPITALS","ae26":"Amanda Bonner","ae27":"Amanda Bonner","se26":"Kurt Chapman","se27":"Kurt Chapman","sub":"Healthcare","state":"NC","county":"ORANGE"},{"name":"NC-UNIVERSITY OF NORTH CAROLINA SYSTEM GENERAL ADMINISTRATION","ae26":"Jim McCormick","ae27":"Jim McCormick","se26":"Mike Curtis","se27":"Mike Curtis","sub":"Tertiary - 4 year institutions","state":"NC","county":"ORANGE"},{"name":"NC-VANCE COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Darius Carson","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"VANCE"},{"name":"NC-WAKE COUNTY SCHOOL DISTRICT","ae26":"Amanda Bonner","ae27":"Amanda Bonner","se26":"Kurt Chapman","se27":"Kurt Chapman","sub":"Primary Secondary","state":"NC","county":"WAKE"},{"name":"NC-WAKE FOREST UNIVERSITY","ae26":"Jim McCormick","ae27":"Jim McCormick","se26":"Eli Gelber","se27":"Eli Gelber","sub":"Tertiary - 4 year institutions","state":"NC","county":"FORSYTH"},{"name":"NC-WAKE TECHNICAL COMMUNITY COLLEGE","ae26":"Amanda Bonner","ae27":"Amanda Bonner","se26":"Dan Callahan","se27":"Kurt Chapman","sub":"Tertiary - 2 year institutions","state":"NC","county":"WAKE"},{"name":"NC-WAKEMED","ae26":"STATE NC TEAM","ae27":"Amanda Bonner","se26":"Kurt Chapman","se27":"Kurt Chapman","sub":"Healthcare","state":"NC","county":"WAKE"},{"name":"NC-WATAUGA COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Darius Carson","se27":"Brandon Culler","sub":"Primary Secondary","state":"NC","county":"WATAUGA"},{"name":"NC-WAYNE COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Meagan Raviele","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"WAYNE"},{"name":"NC-WESTERN CAROLINA UNIVERSITY","ae26":"Rosalie Simcoe","ae27":"Rosalie Simcoe","se26":"Dan Callahan","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"NC","county":"JACKSON"},{"name":"NC-WILKES COUNTY SCHOOL DISTRICT","ae26":"Caitlin K Long","ae27":"Caitlin K Long","se26":"Darius Carson","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"WILKES"},{"name":"NC-WINSTON SALEM FORSYTH COUNTY SCHOOLS","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Darius Carson","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"FORSYTH"},{"name":"NC-WINSTON-SALEM STATE UNIVERSITY","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Eli Gelber","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"NC","county":"FORSYTH"},{"name":"NC-YADKIN COUNTY SCHOOL DISTRICT","ae26":"Jane Andrews Brantley","ae27":"Faizal Hamdoon","se26":"Eli Gelber","se27":"Meagan Raviele","sub":"Primary Secondary","state":"NC","county":"YADKIN"},{"name":"SC-AIKEN SCHOOL DISTRICT","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"AIKEN"},{"name":"SC-AIKEN TECHNICAL COLLEGE","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Tertiary - 2 year institutions","state":"SC","county":"AIKEN"},{"name":"SC-ANDERSON SCHOOL DISTRICT 1","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"GREENVILLE"},{"name":"SC-ANDERSON SCHOOL DISTRICT 5","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"ANDERSON"},{"name":"SC-BERKELEY SCHOOL DISTRICT","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"BERKELEY"},{"name":"SC-CENTRAL CAROLINA TECHNICAL COLLEGE","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams","se27":"Omar Capacetti","sub":"Tertiary - 2 year institutions","state":"SC","county":"SUMTER"},{"name":"SC-CHARLESTON SCHOOL DISTRICT","ae26":"Chad Robert Martens","ae27":"Windy Key","se26":"Tom Geny","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"CHARLESTON"},{"name":"SC-CHESTER SCHOOL DISTRICT","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"CHESTER"},{"name":"SC-CHESTERFIELD SCHOOL DISTRICT","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"CHESTERFIELD"},{"name":"SC-CLARENDON SCHOOL DISTRICT 2","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"CLARENDON"},{"name":"SC-CLEMSON UNIVERSITY","ae26":"Abed Christopher Qadura","ae27":"Windy Key","se26":"Brad Landrum","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"SC","county":"PICKENS"},{"name":"SC-CLOVER SCHOOL DISTRICT 2","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"YORK"},{"name":"SC-COASTAL CAROLINA UNIVERSITY","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Tertiary - 4 year institutions","state":"SC","county":"HORRY"},{"name":"SC-COLLEGE OF CHARLESTON","ae26":"Windy Key","ae27":"Windy Key","se26":"Josh Williams","se27":"Joshua Williams","sub":"Tertiary - 4 year institutions","state":"SC","county":"CHARLESTON"},{"name":"SC-DILLON SCHOOL DISTRICT 2","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"DILLON"},{"name":"SC-DORCHESTER SCHOOL DISTRICT 2","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"DORCHESTER"},{"name":"SC-FLORENCE-DARLINGTON TECHNICAL COLLEGE","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams","se27":"Omar Capacetti","sub":"Tertiary - 2 year institutions","state":"SC","county":"FLORENCE"},{"name":"SC-FURMAN UNIVERSITY","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Tertiary - 4 year institutions","state":"SC","county":"GREENVILLE"},{"name":"SC-GEORGETOWN SCHOOL DISTRICT","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"GEORGETOWN"},{"name":"SC-GREENVILLE COUNTY SCHOOL DISTRICT","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"GREENVILLE"},{"name":"SC-GREENVILLE TECHNICAL COLLEGE","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Tertiary - 2 year institutions","state":"SC","county":"GREENVILLE"},{"name":"SC-GREENWOOD SCHOOL DISTRICT 50","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"GREENWOOD"},{"name":"SC-HORRY SCHOOL DISTRICT","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"HORRY"},{"name":"SC-HORRY-GEORGETOWN TECHNICAL COLLEGE","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams","se27":"Omar Capacetti","sub":"Tertiary - 2 year institutions","state":"SC","county":"HORRY"},{"name":"SC-KERSHAW COUNTY SCHOOL DISTRICT","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"KERSHAW"},{"name":"SC-LANCASTER SCHOOL DISTRICT","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"LANCASTER"},{"name":"SC-LANDER UNIVERSITY","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Tertiary - 4 year institutions","state":"SC","county":"GREENWOOD"},{"name":"SC-LEXINGTON SCHOOL DISTRICT 1","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"LEXINGTON"},{"name":"SC-LEXINGTON SCHOOL DISTRICT 5","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"RICHLAND"},{"name":"SC-MIDLANDS TECHNICAL COLLEGE","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Tertiary - 2 year institutions","state":"SC","county":"RICHLAND"},{"name":"SC-NEWBERRY SCHOOL DISTRICT","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"NEWBERRY"},{"name":"SC-ORANGEBURG CONSOLIDATED SCHOOL DISTRICT 5","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"ORANGEBURG"},{"name":"SC-ORANGEBURG SCHOOL DISTRICT 3","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"ORANGEBURG"},{"name":"SC-ORANGEBURG SCHOOL DISTRICT 4","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"ORANGEBURG"},{"name":"SC-PICKENS COUNTY SCHOOL DISTRICT","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"PICKENS"},{"name":"SC-PIEDMONT TECHNICAL COLLEGE","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Tertiary - 2 year institutions","state":"SC","county":"GREENWOOD"},{"name":"SC-RICHLAND SCHOOL DISTRICT 1","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"RICHLAND"},{"name":"SC-RICHLAND SCHOOL DISTRICT 2","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"RICHLAND"},{"name":"SC-ROCK HILL SCHOOL DISTRICT 3","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"YORK"},{"name":"SC-SPARTANBURG COMMUNITY COLLEGE","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Tertiary - 2 year institutions","state":"SC","county":"SPARTANBURG"},{"name":"SC-SPARTANBURG SCHOOL DISTRICT 1","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"SPARTANBURG"},{"name":"SC-SPARTANBURG SCHOOL DISTRICT 7","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Primary Secondary","state":"SC","county":"SPARTANBURG"},{"name":"SC-SUMTER SCHOOL DISTRICT 17","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"SUMTER"},{"name":"SC-THE CITADEL","ae26":"Windy Key","ae27":"Windy Key","se26":"Josh Williams","se27":"Joshua Williams","sub":"Tertiary - 4 year institutions","state":"SC","county":"CHARLESTON"},{"name":"SC-TRI COUNTY TECHNICAL COLLEGE","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Tertiary - 2 year institutions","state":"SC","county":"ANDERSON"},{"name":"SC-TRIDENT TECHNICAL COLLEGE","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams","se27":"Omar Capacetti","sub":"Tertiary - 2 year institutions","state":"SC","county":"CHARLESTON"},{"name":"SC-USC AIKEN","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"SC","county":"AIKEN"},{"name":"SC-USC BEAUFORT","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"SC","county":"BEAUFORT"},{"name":"SC-USC COLUMBIA","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"SC","county":"RICHLAND"},{"name":"SC-USC SALKEHATCHIE","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"SC","county":"COLLETON"},{"name":"SC-USC SUMTER","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"SC","county":"SUMTER"},{"name":"SC-USC UNION","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"SC","county":"RICHLAND"},{"name":"SC-USC UPSTATE","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum","se27":"Brandon Culler","sub":"Tertiary - 4 year institutions","state":"SC","county":"SPARTANBURG"},{"name":"SC-WILLIAMSBURG SCHOOL DISTRICT","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams, Tom Geny","se27":"Omar Capacetti","sub":"Primary Secondary","state":"SC","county":"WILLIAMSBURG"},{"name":"SC-WILLIAMSBURG TECHNICAL COLLEGE","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams","se27":"Omar Capacetti","sub":"Tertiary - 2 year institutions","state":"SC","county":"WILLIAMSBURG"},{"name":"SC-WOFFORD COLLEGE","ae26":"Linda Miller","ae27":"Linda Miller","se26":"Josh Williams","se27":"Joshua Williams","sub":"Tertiary - 4 year institutions","state":"SC","county":"SPARTANBURG"},{"name":"SC-YORK TECHNICAL COLLEGE","ae26":"Windy Key","ae27":"Windy Key","se26":"Brad Landrum, Josh Williams","se27":"Omar Capacetti","sub":"Tertiary - 2 year institutions","state":"SC","county":"YORK"}];</script>
+<script id="auth">const SEED_GATE = null; const SEED_ID = "base-7-29";</script>
 <script>
 /* ============================ model ============================ */
-const PAL = ["#22d3ee","#a78bfa","#e879f9","#fbbf24","#4ade80","#f87171","#60a5fa","#fb923c"];
-const SE_PAL = ["#5eead4","#c4b5fd","#fda4af","#fcd34d","#86efac","#93c5fd","#f0abfc"];
+/* first 8 / 7 entries are the published roster; the rest are headroom for new hires */
+const PAL = ["#22d3ee","#a78bfa","#e879f9","#fbbf24","#4ade80","#f87171","#60a5fa","#fb923c",
+             "#2dd4bf","#f472b6","#a3e635","#c084fc","#38bdf8","#facc15"];
+const SE_PAL = ["#5eead4","#c4b5fd","#fda4af","#fcd34d","#86efac","#93c5fd","#f0abfc",
+                "#7dd3fc","#fdba74","#d9f99d","#f9a8d4","#a5b4fc","#6ee7b7","#e9d5ff"];
 
 const SEG = {
   "Primary Secondary":        {label:"K-12",   short:"K-12"},
@@ -403,10 +515,94 @@ function tally(key, list){
   list.forEach(a=>m.set(a[key], (m.get(a[key])||0)+1));
   return [...m.entries()].sort((x,y)=>y[1]-x[1]||x[0].localeCompare(y[0]));
 }
-const AMS = tally("am", ACCT).map(e=>e[0]);
-const SES = tally("se", ACCT).map(e=>e[0]);
-const AMC = new Map(AMS.map((n,i)=>[n, PAL[i%PAL.length]]));
-const SEC = new Map(SES.map((n,i)=>[n, SE_PAL[i%SE_PAL.length]]));
+
+/* Colours are pinned to a name the first time we see it and never reassigned,
+   so reassigning an account can't reshuffle everyone else's colour. */
+let AMS = [], SES = [];
+const AMC = new Map(), SEC = new Map();
+function hue(map, pal, name){
+  if(map.has(name)) return map.get(name);
+  const used = new Map(pal.map(c=>[c,0]));
+  map.forEach(c=>{ if(used.has(c)) used.set(c, used.get(c)+1); });
+  let best = pal[0];
+  pal.forEach(c=>{ if(used.get(c) < used.get(best)) best = c; });
+  map.set(name, best);
+  return best;
+}
+const BYRAW = new Map(ACCT.map(a=>[a.raw, a]));
+
+function recompute(){
+  AMS = tally("am", ACCT).map(e=>e[0]);
+  SES = tally("se", ACCT).map(e=>e[0]);
+  AMS.forEach(n=>hue(AMC, PAL, n));
+  SES.forEach(n=>hue(SEC, SE_PAL, n));
+  ACCT.forEach(a=>{
+    a.hay = [a.name, a.county, a.am, a.se, a.am0, a.se0, a.state, SEG[a.seg].label].join(" ").toLowerCase();
+  });
+}
+
+/* ============================ edits ============================ */
+/* keyed per published baseline so copies of this file never overwrite each other */
+const LS_KEY = "fy27-coverage-map:" + SEED_ID;
+let EDITS = [];   /* {k:rawName, f:"am"|"se", to, by, at} replayed over the seed */
+
+function persist(){
+  try{ localStorage.setItem(LS_KEY, JSON.stringify({id:SEED_ID, gate:LOCAL_GATE, edits:EDITS})); }
+  catch(e){ /* private mode / storage disabled: edits stay in-memory only */ }
+}
+function rebuild(){
+  ACCT.forEach(a=>{ a.am = RAW[a.id].ae27; a.se = RAW[a.id].se27; });
+  EDITS.forEach(e=>{ const a = BYRAW.get(e.k); if(a) a[e.f] = e.to; });
+  recompute();
+}
+function setPerson(a, field, to, group){
+  const from = a[field];
+  if(from === to) return false;
+  EDITS.push({k:a.raw, f:field, from, to, by:EDITOR, at:Date.now(), g:group});
+  rebuild(); persist();
+  return true;
+}
+function revertEdits(list){
+  EDITS = EDITS.filter(e=>!list.includes(e));
+  rebuild(); persist(); render();
+}
+/* one log entry per action: a bulk reassign writes many edits under one group id */
+function changeGroups(){
+  const byG = new Map(), out = [];
+  EDITS.forEach(e=>{
+    if(e.g && byG.has(e.g)){ byG.get(e.g).items.push(e); return; }
+    const g = {f:e.f, to:e.to, by:e.by, at:e.at, items:[e]};
+    if(e.g) byG.set(e.g, g);
+    out.push(g);
+  });
+  return out;
+}
+
+/* ============================ edit lock ============================ */
+/* The passphrase is never shipped in this file. On first use the editor picks one;
+   only a salted PBKDF2-SHA-256 digest is stored, and it is baked into exported
+   copies so a second editor can unlock them. This gates the UI, not the data --
+   see the note in the unlock dialog. */
+const ITER = 210000;
+let LOCAL_GATE = null, UNLOCKED = false, EDITOR = "";
+
+function hex(buf){ return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,"0")).join(""); }
+async function derive(pass, saltHex){
+  const salt = new Uint8Array(saltHex.match(/../g).map(h=>parseInt(h,16)));
+  const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(pass), "PBKDF2", false, ["deriveBits"]);
+  return hex(await crypto.subtle.deriveBits({name:"PBKDF2", salt, iterations:ITER, hash:"SHA-256"}, key, 256));
+}
+async function makeGate(pass){
+  const salt = hex(crypto.getRandomValues(new Uint8Array(16)));
+  return {salt, hash: await derive(pass, salt), iter: ITER};
+}
+function gate(){ return SEED_GATE || LOCAL_GATE; }
+function sameHash(a,b){
+  if(a.length !== b.length) return false;
+  let d = 0;
+  for(let i=0;i<a.length;i++) d |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return d === 0;
+}
 
 /* ============================ state ============================ */
 const F = {view:"pods", states:new Set(), segs:new Set(), ams:new Set(), ses:new Set(), moved:false};
@@ -464,10 +660,42 @@ addEventListener("keydown", e=>{
   if(CARD.classList.contains("open")) cardClose(); else drawerClose();
 });
 
-function drawerOpen(title, build){
+/* scope = {field, name, items} enables bulk reassignment of exactly what is listed */
+function drawerOpen(title, build, scope){
   $("#d-title").textContent = title;
-  const b=$("#d-body"); b.innerHTML=""; build(b);
+  const b=$("#d-body"); b.innerHTML="";
+  if(UNLOCKED && scope && scope.items.length) b.appendChild(bulkControl(title, build, scope));
+  build(b);
   DR.classList.add("open"); SCRIM.classList.add("on"); DR.setAttribute("aria-hidden","false");
+}
+
+function bulkControl(title, build, scope){
+  const n = scope.items.length;
+  const btn = el("button","bulk", "Reassign "+(n>1 ? "these "+n+" accounts" : "this account")+" \u2192");
+  btn.onclick = ()=>{
+    const names = (scope.field === "am" ? AMS : SES).filter(x=>x !== scope.name);
+    const sel = document.createElement("select");
+    sel.className = "bulk";
+    sel.style.cursor = "pointer";
+    const ph = document.createElement("option");
+    ph.value = ""; ph.textContent = "Move "+(n>1 ? "all "+n : "it")+" to\u2026"; ph.selected = true;
+    sel.appendChild(ph);
+    names.forEach(x=>{
+      const o = document.createElement("option");
+      o.value = x; o.textContent = x;
+      sel.appendChild(o);
+    });
+    sel.onchange = ()=>{
+      if(!sel.value) return;
+      const g = "g"+Date.now();
+      scope.items.forEach(a=>setPerson(a, scope.field, sel.value, g));
+      render();
+      drawerOpen(title, build, {field:scope.field, name:scope.name, items:[]});
+    };
+    btn.replaceWith(sel);
+    sel.focus();
+  };
+  return btn;
 }
 /* field = which counterpart to name on each row; null when both are already fixed by the title */
 function listRows(box, items, field){
@@ -490,8 +718,48 @@ function listRows(box, items, field){
 }
 /* ============================ answer card ============================ */
 const CARD = $("#card");
-function cardClose(){ CARD.classList.remove("open"); CARD.setAttribute("aria-hidden","true"); if(!DR.classList.contains("open")) SCRIM.classList.remove("on"); }
+let editing = false;
+function cardClose(){
+  CARD.classList.remove("open"); CARD.setAttribute("aria-hidden","true"); editing = false;
+  if(!DR.classList.contains("open")) SCRIM.classList.remove("on");
+}
 $("#c-close").onclick = cardClose;
+
+const NEWP = "\u0000new";
+function picker(a, field){
+  const names = field === "am" ? AMS : SES;
+  const sel = document.createElement("select");
+  names.forEach(n=>{
+    const o = document.createElement("option");
+    o.value = n; o.textContent = n; o.selected = n === a[field];
+    sel.appendChild(o);
+  });
+  const o = document.createElement("option");
+  o.value = NEWP; o.textContent = "\uFF0B Add someone new\u2026";
+  sel.appendChild(o);
+
+  const box = el("div");
+  box.style.cssText = "display:flex;flex-direction:column;align-items:center";
+  box.appendChild(sel);
+
+  sel.onchange = ()=>{
+    if(sel.value !== NEWP){ setPerson(a, field, sel.value); render(); showAccount(a); return; }
+    const inp = el("input","newname");
+    inp.placeholder = "Full name";
+    box.appendChild(inp); inp.focus();
+    const commit = ()=>{
+      const v = inp.value.trim().replace(/\s+/g," ");
+      if(v) setPerson(a, field, v);
+      render(); showAccount(a);
+    };
+    inp.onkeydown = e=>{
+      if(e.key === "Enter"){ e.preventDefault(); commit(); }
+      if(e.key === "Escape"){ e.preventDefault(); showAccount(a); }
+    };
+    inp.onblur = commit;
+  };
+  return box;
+}
 
 function showAccount(a){
   $("#c-name").textContent = a.name;
@@ -502,36 +770,48 @@ function showAccount(a){
     t.style.cssText="font-size:10.5px;padding:4px 10px;border-radius:999px";
     ch.appendChild(t);
   });
+  if(UNLOCKED){
+    const e = el("button","editpill", editing ? "Done" : "Edit");
+    e.setAttribute("aria-pressed", editing);
+    e.onclick = ()=>{ editing = !editing; showAccount(a); };
+    ch.appendChild(e);
+  }
 
-  const who = (role, name, prev, color, field)=>{
+  const who = (role, prev, field)=>{
+    const name = a[field], color = field==="am" ? AMC.get(name) : SEC.get(name);
     const w = el("div","who");
     w.appendChild(avatar(name, 62, color));
     w.appendChild(el("div","role", role));
-    w.appendChild(el("div","pname", name));
-    w.appendChild(el("div","pbook", ACCT.filter(x=>x[field]===name).length+" accounts"));
+    if(editing){
+      w.appendChild(picker(a, field));
+    } else {
+      w.appendChild(el("div","pname", name));
+      w.appendChild(el("div","pbook", ACCT.filter(x=>x[field]===name).length+" accounts"));
+      w.title = "Show all of "+name+"'s accounts";
+      w.onclick = ()=>{ const set = ACCT.filter(x=>x[field]===name);
+        cardClose(); drawerOpen(name, b=>listRows(b, set, field==="am"?"se":"am"), {field, name, items:set}); };
+    }
     if(prev && prev!==name){
       const p = el("div","pwas");
+      p.appendChild(document.createTextNode("FY26: "));
       p.appendChild(el("s", null, prev));
-      p.appendChild(document.createTextNode(" \u2192 new"));
       w.appendChild(p);
     }
-    w.title = "Show all of "+name+"'s accounts";
-    w.onclick = ()=>{ cardClose(); drawerOpen(name, b=>listRows(b, ACCT.filter(x=>x[field]===name), field==="am"?"se":"am")); };
     return w;
   };
 
   const p = $("#c-pair"); p.innerHTML="";
-  p.appendChild(who("Account Manager", a.am, a.am0, AMC.get(a.am), "am"));
+  p.appendChild(who("Account Manager", a.am0, "am"));
   const lk = el("div","link");
   lk.appendChild(el("div","ln"));
   lk.appendChild(el("div","md"));
   lk.appendChild(el("div","ln r"));
   p.appendChild(lk);
-  p.appendChild(who("Systems Engineer", a.se, a.se0, SEC.get(a.se), "se"));
+  p.appendChild(who("Systems Engineer", a.se0, "se"));
 
   const ft = $("#c-ft"); ft.innerHTML="";
   const sib = ACCT.filter(x=>x.se===a.se && x.am===a.am && x.id!==a.id);
-  if(sib.length){
+  if(sib.length && !editing){
     const b = el("button","fbtn");
     b.appendChild(avatar(a.am,18,AMC.get(a.am)));
     b.appendChild(avatar(a.se,18,SEC.get(a.se)));
@@ -541,6 +821,142 @@ function showAccount(a){
   }
 
   CARD.classList.add("open"); CARD.setAttribute("aria-hidden","false"); SCRIM.classList.add("on");
+}
+
+/* ============================ unlock dialog ============================ */
+const GB = $("#gatebox");
+let gateMode = "unlock";
+
+function gateOpen(){
+  gateMode = gate() ? "unlock" : "setup";
+  const setup = gateMode === "setup";
+  $("#g-title").textContent = setup ? "Set an editor passphrase" : "Unlock editing";
+  $("#g-sub").textContent = setup
+    ? "Nobody has claimed editing on this copy yet. Pick a passphrase, then use \u201cExport\u201d to publish a copy that asks for it \u2014 that is how your second editor gets in."
+    : "Enter the editor passphrase to change coverage.";
+  $("#g-confirm-l").hidden = !setup;
+  $("#g-go").textContent = setup ? "Set & unlock" : "Unlock";
+  $("#g-err").textContent = "";
+  $("#g-pass").value = ""; $("#g-confirm").value = "";
+  $("#g-name").value = EDITOR || "";
+  GB.classList.add("open"); GB.setAttribute("aria-hidden","false"); SCRIM.classList.add("on");
+  setTimeout(()=>$("#g-name").focus(), 60);
+}
+function gateHide(){
+  GB.classList.remove("open"); GB.setAttribute("aria-hidden","true");
+  if(!DR.classList.contains("open") && !CARD.classList.contains("open")) SCRIM.classList.remove("on");
+}
+$("#g-close").onclick = gateHide;
+
+$("#g-form").onsubmit = async ev=>{
+  ev.preventDefault();
+  const pass = $("#g-pass").value, name = $("#g-name").value.trim(), err = $("#g-err");
+  if(pass.length < 6){ err.textContent = "Use at least 6 characters."; return; }
+  if(!name){ err.textContent = "Add your name so changes are attributable."; return; }
+
+  const btn = $("#g-go"); btn.disabled = true; btn.textContent = "Checking\u2026";
+  try{
+    if(gateMode === "setup"){
+      if(pass !== $("#g-confirm").value){ err.textContent = "Passphrases do not match."; return; }
+      LOCAL_GATE = await makeGate(pass);
+    } else {
+      const g = gate();
+      if(!sameHash(await derive(pass, g.salt), g.hash)){ err.textContent = "Wrong passphrase."; return; }
+    }
+    EDITOR = name; UNLOCKED = true;
+    persist(); gateHide(); render();
+  } finally {
+    btn.disabled = false; btn.textContent = gateMode === "setup" ? "Set & unlock" : "Unlock";
+  }
+};
+
+$("#lock").onclick = ()=>{
+  if(UNLOCKED){ UNLOCKED = false; render(); }
+  else gateOpen();
+};
+
+/* ============================ change log ============================ */
+function changesPanel(){
+  const groups = changeGroups();
+  drawerOpen(groups.length ? groups.length+(groups.length>1?" changes":" change") : "No changes yet", box=>{
+    groups.slice().reverse().forEach(g=>{
+      const many = g.items.length > 1;
+      const first = BYRAW.get(g.items[0].k);
+      const row = el("div","chg");
+      row.appendChild(avatar(g.to, 26, g.f==="am" ? AMC.get(g.to) : SEC.get(g.to)));
+      const t = el("div","txt");
+      t.appendChild(el("div","t1", many ? g.items.length+" accounts" : (first ? first.name : g.items[0].k)));
+      const t2 = el("div","t2");
+      t2.appendChild(el("span","tagx", g.f.toUpperCase()));
+      t2.appendChild(el("s", null, g.items[0].from));
+      t2.appendChild(el("span", null, "\u2192"));
+      t2.appendChild(el("em", null, g.to));
+      t2.appendChild(el("span", null, "\u00B7 "+g.by));
+      t.appendChild(t2);
+      row.appendChild(t);
+      const un = el("button","un","Undo");
+      un.onclick = ()=>{ revertEdits(g.items); changesPanel(); };
+      row.appendChild(un);
+      box.appendChild(row);
+    });
+
+    const bar = el("div","expbar");
+    const mk = (title, sub, fn, cls)=>{
+      const b = el("button", cls||null);
+      b.appendChild(el("b", null, title));
+      b.appendChild(el("span", null, sub));
+      b.onclick = fn;
+      return b;
+    };
+    bar.appendChild(mk("Export page", "Self-contained HTML with these changes baked in \u2014 send this to the team", exportHTML));
+    bar.appendChild(mk("Export CSV", "Account, AM, SE \u2014 for reconciling back to the spreadsheet", exportCSV));
+    if(EDITS.length) bar.appendChild(mk("Discard all changes", "Return to the published coverage", ()=>{
+      if(!confirm("Discard all "+groups.length+" change(s)?")) return;
+      EDITS = []; rebuild(); persist(); render(); drawerClose();
+    }, "danger"));
+    box.appendChild(bar);
+  });
+}
+
+/* ============================ export ============================ */
+function download(text, filename, mime){
+  const url = URL.createObjectURL(new Blob([text], {type:mime}));
+  const a = document.createElement("a");
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url), 2000);
+}
+function stamp(){
+  const d = new Date();
+  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+}
+
+function exportHTML(){
+  const seed = RAW.map((r,i)=>Object.assign({}, r, {ae27:ACCT[i].am, se27:ACCT[i].se}));
+  const doc = document.documentElement.cloneNode(true);
+
+  doc.querySelector("#seed").textContent = "const RAW = "+JSON.stringify(seed)+";";
+  doc.querySelector("#auth").textContent =
+    "const SEED_GATE = "+JSON.stringify(gate())+"; const SEED_ID = "+JSON.stringify("x"+Date.now())+";";
+
+  /* open the copy in a clean state */
+  ["#stage","#d-body","#results","#c-pair","#c-chips","#c-ft","#legend","#f-state","#f-seg"]
+    .forEach(s=>{ const n = doc.querySelector(s); if(n) n.innerHTML = ""; });
+  doc.querySelectorAll(".open,.on,.has").forEach(n=>n.classList.remove("open","on","has"));
+  const q = doc.querySelector("#q"); if(q) q.removeAttribute("value");
+  const ch = doc.querySelector("#changes"); if(ch){ ch.textContent = ""; ch.hidden = true; }
+
+  download("<!DOCTYPE html>\n"+doc.outerHTML, "FY27-Coverage-Map-"+stamp()+".html", "text/html");
+}
+
+function exportCSV(){
+  const q = v=>/[",\n]/.test(v) ? '"'+v.replace(/"/g,'""')+'"' : v;
+  const head = ["Account","State","Segment","County","Account Manager","Systems Engineer","FY26 AM","FY26 SE","Changed"];
+  const body = ACCT.slice().sort((a,b)=>a.name.localeCompare(b.name)).map(a=>[
+    a.raw, a.state, SEG[a.seg].label, a.county, a.am, a.se, a.am0, a.se0,
+    (a.am !== RAW[a.id].ae27 || a.se !== RAW[a.id].se27) ? "yes" : ""
+  ].map(v=>q(String(v))).join(","));
+  download([head.join(",")].concat(body).join("\r\n"), "FY27-Coverage-"+stamp()+".csv", "text/csv");
 }
 
 /* ============================ search ============================ */
@@ -663,7 +1079,7 @@ function viewPods(rows, stage){
     hd.appendChild(el("div","nm", se));
     hd.appendChild(el("div","n", mine.length+""));
     hd.style.cursor="pointer";
-    hd.onclick = ()=>drawerOpen(se, b=>listRows(b, mine, "am"));
+    hd.onclick = ()=>drawerOpen(se, b=>listRows(b, mine, "am"), {field:"se", name:se, items:mine});
     pod.appendChild(hd);
 
     const body = el("div","pod-body");
@@ -674,7 +1090,7 @@ function viewPods(rows, stage){
       const dot = el("div","dot"); dot.style.background=AMC.get(am); gh.appendChild(dot);
       gh.appendChild(el("div","lbl", am));
       gh.appendChild(el("div","c", set.length+""));
-      gh.onclick = ()=>drawerOpen(am+"  \u00B7  "+se, b=>listRows(b, set, null));
+      gh.onclick = ()=>drawerOpen(am+"  \u00B7  "+se, b=>listRows(b, set, null), {field:"se", name:se, items:set});
       g.appendChild(gh);
 
       const tiles = el("div","tiles");
@@ -748,7 +1164,7 @@ function viewFlow(rows, stage){
       };
       p.onmousemove = tipMove;
       p.onmouseleave = ()=>{ ribbons.forEach(q=>q.classList.remove("dim")); p.setAttribute("fill-opacity",.30); tipHide(); };
-      p.onclick = ()=>{ tipHide(); drawerOpen(am+"  \u00B7  "+se, box=>listRows(box, set, null)); };
+      p.onclick = ()=>{ tipHide(); drawerOpen(am+"  \u00B7  "+se, box=>listRows(box, set, null), {field:"se", name:se, items:set}); };
       gR.appendChild(p); ribbons.push(p);
     });
   });
@@ -766,7 +1182,8 @@ function viewFlow(rows, stage){
       g.appendChild(Object.assign(sv("text",{x:tx, y:v.y+v.h/2+13, class:"ncount", "text-anchor":side<0?"end":"start"}),{textContent:v.n}));
       g.onmouseenter = ()=>ribbons.forEach(q=>{ if(q.dataset[keyField]!==name) q.classList.add("dim"); });
       g.onmouseleave = ()=>ribbons.forEach(q=>q.classList.remove("dim"));
-      g.onclick = ()=>drawerOpen(name, box=>listRows(box, rows.filter(a=>a[keyField]===name), keyField==="am"?"se":"am"));
+      g.onclick = ()=>{ const set = rows.filter(a=>a[keyField]===name);
+        drawerOpen(name, box=>listRows(box, set, keyField==="am"?"se":"am"), {field:keyField, name, items:set}); };
       svg.appendChild(g);
     });
   }
@@ -790,7 +1207,8 @@ function viewGrid(rows, stage){
     h.appendChild(avatar(se,32,SEC.get(se)));
     h.appendChild(el("div","nm", se));
     h.style.cursor="pointer";
-    h.onclick = ()=>drawerOpen(se, b=>listRows(b, rows.filter(a=>a.se===se), "am"));
+    h.onclick = ()=>{ const set = rows.filter(a=>a.se===se);
+      drawerOpen(se, b=>listRows(b, set, "am"), {field:"se", name:se, items:set}); };
     g.appendChild(h);
   });
   g.appendChild(el("div"));
@@ -800,7 +1218,8 @@ function viewGrid(rows, stage){
     rh.appendChild(el("div","nm", am));
     rh.appendChild(avatar(am,30,AMC.get(am)));
     rh.style.cursor="pointer";
-    rh.onclick = ()=>drawerOpen(am, b=>listRows(b, rows.filter(a=>a.am===am), "se"));
+    rh.onclick = ()=>{ const set = rows.filter(a=>a.am===am);
+      drawerOpen(am, b=>listRows(b, set, "se"), {field:"am", name:am, items:set}); };
     g.appendChild(rh);
 
     ses.forEach(se=>{
@@ -818,7 +1237,7 @@ function viewGrid(rows, stage){
         c.onmouseenter = ev=>tipShow(ev, set.length+(set.length>1?" accounts":" account"),
           [{color:AMC.get(am),text:am},{color:SEC.get(se),text:se}]);
         c.onmousemove = tipMove; c.onmouseleave = tipHide;
-        c.onclick = ()=>{ tipHide(); drawerOpen(am+"  \u00B7  "+se, b2=>listRows(b2, set, null)); };
+        c.onclick = ()=>{ tipHide(); drawerOpen(am+"  \u00B7  "+se, b2=>listRows(b2, set, null), {field:"se", name:se, items:set}); };
       }
       g.appendChild(c);
     });
@@ -884,6 +1303,8 @@ function viewList(rows, stage){
       g.appendChild(avatar(n,20,map.get(n)));
       g.appendChild(el("span", null, n));
       g.appendChild(el("span", null, "\u00B7 "+set.length));
+      g.style.cursor = "pointer";
+      g.onclick = ()=>drawerOpen(n, b=>listRows(b, set, SORT==="am"?"se":"am"), {field:SORT, name:n, items:set});
       body.appendChild(g);
       set.sort((a,b)=>a.name.localeCompare(b.name)).forEach(a=>body.appendChild(mkRow(a)));
     });
@@ -932,6 +1353,15 @@ function render(){
   $("#s-se").textContent = new Set(rows.map(a=>a.se)).size;
   $("#shown").textContent = rows.length===ACCT.length ? "" : rows.length+" / "+ACCT.length;
   $("#t-moved").setAttribute("aria-pressed", F.moved);
+
+  $("#lock").classList.toggle("on", UNLOCKED);
+  $("#lock-tx").textContent = UNLOCKED ? (EDITOR.split(/\s+/)[0]+" can edit") : "Locked";
+  $("#lock").title = UNLOCKED ? "Lock editing" : "Unlock editing";
+  const groups = changeGroups();
+  const cb = $("#changes");
+  cb.hidden = !groups.length && !UNLOCKED;
+  cb.textContent = groups.length ? groups.length+(groups.length>1?" changes":" change") : "Export";
+
   buildFilters(); buildLegend(rows);
 
   document.querySelectorAll("#views button").forEach(b=>
@@ -946,8 +1376,20 @@ document.querySelectorAll("#views button").forEach(b=>
   b.onclick = ()=>{ F.view=b.dataset.view; render(); });
 $("#t-moved").onclick = ()=>{ F.moved=!F.moved; render(); };
 $("#clear").onclick = ()=>{ F.states.clear(); F.segs.clear(); F.ams.clear(); F.ses.clear(); F.moved=false; render(); };
+$("#changes").onclick = changesPanel;
 
-render();
+/* restore saved edits, but only if they belong to this published baseline */
+(function boot(){
+  try{
+    const saved = JSON.parse(localStorage.getItem(LS_KEY) || "null");
+    if(saved && saved.id === SEED_ID){
+      EDITS = Array.isArray(saved.edits) ? saved.edits : [];
+      LOCAL_GATE = saved.gate || null;
+    }
+  }catch(e){ /* ignore unreadable storage */ }
+  rebuild();
+  render();
+})();
 </script>
 </body>
 </html>
