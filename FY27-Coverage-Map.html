@@ -378,7 +378,10 @@
 
 <nav>
   <div class="seg" id="views" role="tablist">
-    <button role="tab" data-view="pods" aria-selected="true">
+    <button role="tab" data-view="list" aria-selected="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>
+      List</button>
+    <button role="tab" data-view="pods" aria-selected="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>
       Pods</button>
     <button role="tab" data-view="flow" aria-selected="false">
@@ -387,9 +390,6 @@
     <button role="tab" data-view="grid" aria-selected="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
       Grid</button>
-    <button role="tab" data-view="list" aria-selected="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>
-      List</button>
   </div>
 
   <div class="divider"></div>
@@ -605,7 +605,7 @@ function sameHash(a,b){
 }
 
 /* ============================ state ============================ */
-const F = {view:"pods", states:new Set(), segs:new Set(), ams:new Set(), ses:new Set(), moved:false};
+const F = {view:"list", states:new Set(), segs:new Set(), ams:new Set(), ses:new Set(), moved:false};
 
 function visible(){
   return ACCT.filter(a=>
